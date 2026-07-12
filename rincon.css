@@ -1,0 +1,135 @@
+/* --- ESTILOS KAWAII PARA EL RINCÓN 3D --- */
+
+body {
+    /* Un degradado suave y romántico de rosados y duraznos */
+    background: linear-gradient(135deg, #000000 0%, #646262 50%, #000000 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden; 
+}
+
+/* Botón flotante para regresar */
+.btn-volver {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(255, 74, 107, 0.1);
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.btn-volver:hover {
+    background-color: white;
+    transform: scale(1.05);
+}
+
+/* --- EL ESCENARIO DEL LIBRO --- */
+.contenedor-libro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1200px; /* La cámara 3D */
+    margin-top: 20px;
+}
+
+.libro {
+    width: 300px;
+    height: 400px;
+    position: relative;
+    transform-style: preserve-3d;
+    
+    /* Creamos una variable para mover el libro de lado a lado */
+    --desplazamiento: 0px;
+    
+    /* Aplicamos el desplazamiento junto con la inclinación kawaii que ya teníamos */
+    transform: translateX(var(--desplazamiento)) rotateX(15deg) rotateY(-5deg); 
+    
+    box-shadow: 15px 25px 40px rgba(255, 105, 135, 0.15);
+    border-radius: 10px 20px 20px 10px;
+    
+    /* Esta transición hace que el libro se deslice suavemente al centrarse */
+    transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* --- LAS HOJAS --- */
+.papel {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: left center; /* El lomo del libro */
+    /* Aquí está la curva de movimiento súper suave */
+    transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+/* --- CARAS DE LAS HOJAS (FRENTE Y DORSO) --- */
+.frente, .dorso {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    background-color: #fffafb; /* Blanco con un levísimo tinte rosa */
+    border: 1px solid #ffeef0;
+}
+
+.frente {
+    z-index: 2;
+    transform: rotateY(0deg);
+    border-radius: 5px 20px 20px 5px;
+}
+
+.dorso {
+    z-index: 1;
+    transform: rotateY(180deg);
+    border-radius: 20px 5px 5px 20px;
+}
+
+/* Sombra dinámica en el "Lomo" para dar realismo a las fotos */
+.frente::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0; width: 30px;
+    background: linear-gradient(to right, rgba(0,0,0,0.1), transparent);
+    z-index: 10;
+    border-radius: 5px 0 0 5px;
+}
+
+.dorso::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; width: 30px;
+    background: linear-gradient(to left, rgba(0,0,0,0.1), transparent);
+    z-index: 10;
+    border-radius: 0 5px 5px 0;
+}
+
+/* --- LA ROTACIÓN LIMITADA --- */
+/* En vez de 180, gira 160 grados. Esto crea el efecto de que el libro no se abre del todo */
+.papel.volteado {
+    transform: rotateY(-160deg);
+}
+
+/* Ajuste de las fotos para que se vean preciosas */
+.frente img, .dorso img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    /* Un pequeño brillo interior a las fotos */
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.5);
+}

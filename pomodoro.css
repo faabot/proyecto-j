@@ -1,0 +1,146 @@
+/* --- POMODORO.CSS (ESTILO POMOFOCUS) --- */
+
+/* 1. Fondo principal y centrado */
+body {
+    background-color: #ba4949; /* Rojo clásico de Pomofocus */
+    transition: background-color 0.5s ease; /* Para cambiar suave a verde en descanso */
+    font-family: 'Arial Rounded MT Bold', 'Segoe UI', Roboto, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #333;
+}
+
+/* 2. Botón de volver flotante */
+.btn-volver {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.2); /* Transparente elegante */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.btn-volver:hover { background-color: rgba(255, 255, 255, 0.4); }
+
+/* 3. La Tarjeta Principal (El cuadro blanco) */
+.pomodoro-container {
+    background: rgba(255, 255, 255, 0.95);
+    max-width: 400px;
+    width: 90%;
+    padding: 40px 30px;
+    border-radius: 20px; /* Bordes bien redondos */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+#titulo-pomodoro { margin-top: 0; color: #ba4949; font-size: 26px; }
+#subtitulo-pomodoro { color: #666; font-size: 14px; margin-bottom: 25px; }
+
+/* 4. El Reloj Gigante */
+.reloj {
+    font-size: 80px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0 30px 0;
+    font-variant-numeric: tabular-nums; /* Evita que los números tiemblen */
+    line-height: 1;
+}
+
+/* 5. Botones de Control (Con efecto 3D) */
+.botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.botones button {
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    box-shadow: 0 5px 0px rgba(0,0,0,0.15); /* La sombra que da el efecto 3D */
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+/* Efecto de "hundirse" al hacer clic */
+.botones button:active {
+    transform: translateY(5px);
+    box-shadow: 0 0px 0px rgba(0,0,0,0.15);
+}
+
+#btn-iniciar { background-color: #4caf50; }
+#btn-pausar { background-color: #ff9800; }
+#btn-reiniciar { background-color: #f44336; }
+
+/* 6. Panel de Configuración Ordenado */
+.configuracion {
+    background: #f1f3f5;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.configuracion h3 {
+    margin-top: 0;
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+/* Organiza los textos a la izquierda y las cajitas a la derecha */
+.configuracion label {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 12px;
+}
+
+.configuracion input[type="number"] {
+    width: 50px;
+    padding: 6px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    outline: none;
+}
+.configuracion input[type="number"]:focus { border-color: #ba4949; }
+
+/* El botón gigante de Aplicar */
+.btn-aplicar-pomo {
+    width: 100%;
+    background-color: #ba4949;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 0px rgba(186, 73, 73, 0.4);
+    transition: 0.1s;
+}
+
+.btn-aplicar-pomo:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0px;
+}

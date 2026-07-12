@@ -1,0 +1,73 @@
+body {
+    background: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.btn-volver {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    background-color: white;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.qr-container {
+    background: white;
+    max-width: 400px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+h1 { margin-top: 0; color: #2c3e50; }
+p { color: #7f8c8d; margin-bottom: 20px; }
+
+/* El cuadro de la cámara */
+#lector-qr {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    min-height: 250px; /* Evita que el botón salte antes de prender la cámara */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 2px dashed #ced4da;
+}
+
+#btn-camara {
+    width: 100%;
+    padding: 15px;
+    background: #8e44ad; /* Un morado tecnológico */
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btn-camara:hover { background: #732d91; }
+
+#resultado-qr {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #d6336c; /* Tono frambuesa para el mensaje secreto */
+    min-height: 30px;
+}

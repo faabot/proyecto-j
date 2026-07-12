@@ -127,122 +127,83 @@ body {
     transform: translateX(-5px);
 }
 
-/* --- TIPOGRAFÍA GENERAL --- */
-h1 { font-size: 24px; margin-bottom: 10px; color: #ff4a6b; }
-p { font-size: 14px; color: #666; margin-bottom: 25px; }
 
-/* --- ESTILOS POMODORO --- */
-.configuracion { margin-bottom: 20px; display: flex; justify-content: center; gap: 10px; }
-#input-minutos { width: 60px; padding: 8px; font-size: 16px; border: 2px solid #ddd; border-radius: 8px; text-align: center; }
-.reloj { font-size: 60px; font-weight: bold; margin-bottom: 30px; color: #222; }
-.botones { display: flex; gap: 10px; justify-content: center; }
 
-/* --- ESTILOS BOTONES GENERALES --- */
-button { padding: 10px 18px; font-size: 14px; font-weight: bold; border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); }
-button:active { transform: scale(0.95); }
-#btn-aplicar { background-color: #2196f3; color: white; }
-#btn-iniciar { background-color: #4caf50; color: white; }
-#btn-pausar { background-color: #ff9800; color: white; }
-#btn-reiniciar { background-color: #f44336; color: white; }
-#btn-camara, #btn-respuesta { background-color: #9c27b0; color: white; }
 
-/* --- ESTILOS TRIVIA Y CÁMARA --- */
-.carta-kawaii { background: #fff0f3; border-radius: 15px; padding: 20px; border: 2px dashed #ffb3c1; }
-#imagen-trivia { width: 120px; height: 120px; object-fit: contain; margin-bottom: 15px; }
-#pregunta-trivia { font-size: 16px; color: #333; margin-bottom: 15px; }
-#respuesta-trivia { font-size: 18px; font-weight: bold; color: #e63946; margin-top: 15px; margin-bottom: 0; }
-#lector-qr { border-radius: 15px; overflow: hidden; border: 3px solid #ddd; }
 
-/* --- ESTILOS CALCULADORA DE NOTAS --- */
-.seccion-notas {
-    background: #ffffff;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    text-align: left;
-}
+/* --- ESTILOS PARA EL LIBRO 3D DEL RINCÓN --- */
 
-.seccion-notas h3 { font-size: 15px; color: #555; margin-bottom: 10px; }
-
-.input-grupo { display: flex; gap: 10px; }
-.input-grupo input { 
-    flex-grow: 1; 
-    padding: 10px; 
-    border: 2px solid #ddd; 
-    border-radius: 8px; 
-    font-size: 16px;
-    outline: none;
-}
-.input-grupo input:focus { border-color: #74ebd5; }
-
-.btn-añadir { background-color: #00bcd4; color: white; padding: 10px 15px; }
-.btn-añadir:hover { background-color: #0097a7; }
-
-.lista-etiquetas { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
-.etiqueta-nota { 
-    background: #e0f7fa; 
-    color: #00838f; 
-    padding: 6px 12px; 
-    border-radius: 15px; 
-    font-weight: bold; 
-    font-size: 14px; 
-    border: 1px solid #b2ebf2;
-}
-
-.btn-calcular-notas { width: 100%; padding: 15px; font-size: 16px; background-color: #ff4a6b; color: white; margin-top: 10px; }
-.btn-calcular-notas:hover { background-color: #e63946; }
-
-.resultado-oculto { display: none; }
-.resultado-visible { 
-    display: block; 
-    background: #fff0f3; 
-    padding: 20px; 
-    border-radius: 15px; 
-    margin-top: 20px; 
-    font-size: 20px; 
-    font-weight: bold; 
-    color: #d90429; 
-    border: 2px dashed #ffb3c1; 
-    animation: aparecer 0.4s ease; 
-}
-
-/* --- ESTILOS EXTRA PARA PONDERACIÓN INTERNA Y ERRORES --- */
-.toggle-interno {
-    font-size: 13px;
-    color: #666;
-    margin-left: 28px; /* Lo alinea debajo del título principal */
-    cursor: pointer;
+.contenedor-libro {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 5px;
+    perspective: 1500px; /* Esto le da la profundidad 3D */
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
-.input-peso-interno {
-    width: 65px;
-    padding: 10px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-    text-align: center;
-    background-color: #fff9fa; /* Un fondito apenas rosa para distinguirlo */
+.libro {
+    width: 320px;
+    height: 420px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(10deg); /* Lo inclinamos un poquito hacia adelante */
 }
 
-.input-peso-interno:focus {
-    border-color: #ff4a6b;
+/* Las hojas de papel */
+.papel {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: left center; /* El lomo del libro está a la izquierda */
+    transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transform-style: preserve-3d;
+    cursor: pointer;
 }
 
-/* LA ANIMACIÓN DE ERROR (2 PARPADEOS ROJOS) */
-@keyframes dobleParpadeo {
-    0% { background-color: #ffffff; }
-    25% { background-color: #ffcdd2; } /* Parpadeo 1 */
-    50% { background-color: #ffffff; }
-    75% { background-color: #ffcdd2; } /* Parpadeo 2 */
-    100% { background-color: #ffffff; }
+/* Orden de las capas (La hoja 1 va arriba del todo) */
+#p1 { z-index: 5; }
+#p2 { z-index: 4; }
+#p3 { z-index: 3; }
+#p4 { z-index: 2; }
+#p5 { z-index: 1; }
+
+/* Caras de la hoja */
+.frente, .dorso {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden; /* Oculta la cara que no estás mirando */
+    border-radius: 5px 15px 15px 5px;
+    box-shadow: inset 5px 0 15px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.alerta-parpadeo {
-    animation: dobleParpadeo 3s ease-in-out;
-    border: 1px solid #ff4a6b !important;
+.frente {
+    z-index: 2;
+    transform: rotateY(0deg);
+    background-color: white;
+}
+
+.dorso {
+    z-index: 1;
+    transform: rotateY(180deg);
+    border-radius: 15px 5px 5px 15px;
+    background-color: white;
+}
+
+/* La clase que añade JavaScript cuando haces clic */
+.papel.volteado {
+    transform: rotateY(-180deg);
+}
+
+/* Ajuste de las imágenes para que llenen la hoja */
+.frente img, .dorso img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
 }

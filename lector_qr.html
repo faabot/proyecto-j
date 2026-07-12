@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lector QR Secreto 📷</title>
+    <link rel="stylesheet" href="lector_qr.css">
+    
+    <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+<body>
+
+    <a href="index.html" class="btn-volver">⬅ Volver al Menú</a>
+
+    <div class="qr-container">
+        <h1>Escáner de Mensajes 📷</h1>
+        <p>Apunta la cámara al código para descubrir la sorpresa.</p>
+
+        <div id="lector_qr"></div>
+
+        <div id="resultado-qr"></div>
+
+        <button id="btn-camara" onclick="iniciarQR()">Encender Cámara</button>
+    </div>
+
+    <script src="lector_qr.js"></script>
+</body>
+</html>

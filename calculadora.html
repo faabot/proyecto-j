@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora U 🎓</title>
+    <link rel="stylesheet" href="calculadora.css">
+</head>
+<body>
+
+    <a href="index.html" class="btn-volver">⬅ Volver al Menú</a>
+
+    <div class="contenedor-principal">
+        <h1>Calculadora U 🎓</h1>
+        <p class="subtitulo">Activa lo que necesites. Si las notas valen distinto, activa la sub-casilla.</p>
+
+        <div class="seccion-notas" id="seccion-certamenes">
+            <div class="cabecera-categoria">
+                <div class="controles-toggle">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="check-certamenes" checked onchange="alternarCategoria('certamenes')">
+                        📝 Certámenes
+                    </label>
+                    <label class="toggle-interno">
+                        <input type="checkbox" id="interno-certamenes" onchange="alternarModoInterno('certamenes')"> Cada nota tiene % distinto
+                    </label>
+                </div>
+                <input type="number" id="peso-certamenes" class="input-peso" placeholder="% Total">
+            </div>
+            <div class="input-grupo" id="grupo-certamenes">
+                <input type="number" id="nota-certamenes" step="0.1" min="1.0" max="7.0" placeholder="Nota">
+                <input type="number" id="peso-int-certamenes" class="input-peso-interno" placeholder="%" min="1" max="100" style="display: none;">
+                <button class="btn-añadir" onclick="agregarNota('certamenes')">Añadir</button>
+            </div>
+            <div id="lista-certamenes" class="lista-etiquetas"></div>
+        </div>
+
+        <div class="seccion-notas" id="seccion-trabajos">
+            <div class="cabecera-categoria">
+                <div class="controles-toggle">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="check-trabajos" checked onchange="alternarCategoria('trabajos')">
+                        📁 Trabajos
+                    </label>
+                    <label class="toggle-interno">
+                        <input type="checkbox" id="interno-trabajos" onchange="alternarModoInterno('trabajos')"> Cada nota tiene % distinto
+                    </label>
+                </div>
+                <input type="number" id="peso-trabajos" class="input-peso" placeholder="% Total">
+            </div>
+            <div class="input-grupo" id="grupo-trabajos">
+                <input type="number" id="nota-trabajos" step="0.1" min="1.0" max="7.0" placeholder="Nota">
+                <input type="number" id="peso-int-trabajos" class="input-peso-interno" placeholder="%" min="1" max="100" style="display: none;">
+                <button class="btn-añadir" onclick="agregarNota('trabajos')">Añadir</button>
+            </div>
+            <div id="lista-trabajos" class="lista-etiquetas"></div>
+        </div>
+
+        <div class="seccion-notas" id="seccion-laboratorios">
+            <div class="cabecera-categoria">
+                <div class="controles-toggle">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="check-laboratorios" onchange="alternarCategoria('laboratorios')">
+                        🔬 Laboratorios
+                    </label>
+                    <label class="toggle-interno">
+                        <input type="checkbox" id="interno-laboratorios" onchange="alternarModoInterno('laboratorios')" disabled> Cada nota tiene % distinto
+                    </label>
+                </div>
+                <input type="number" id="peso-laboratorios" class="input-peso" placeholder="% Total" disabled>
+            </div>
+            <div class="input-grupo" id="grupo-laboratorios" style="opacity: 0.5; pointer-events: none;">
+                <input type="number" id="nota-laboratorios" step="0.1" min="1.0" max="7.0" placeholder="Nota">
+                <input type="number" id="peso-int-laboratorios" class="input-peso-interno" placeholder="%" min="1" max="100" style="display: none;">
+                <button class="btn-añadir" onclick="agregarNota('laboratorios')">Añadir</button>
+            </div>
+            <div id="lista-laboratorios" class="lista-etiquetas"></div>
+        </div>
+
+        <div class="seccion-notas" id="seccion-presentaciones">
+            <div class="cabecera-categoria">
+                <div class="controles-toggle">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="check-presentaciones" onchange="alternarCategoria('presentaciones')">
+                        🗣️ Presentaciones
+                    </label>
+                    <label class="toggle-interno">
+                        <input type="checkbox" id="interno-presentaciones" onchange="alternarModoInterno('presentaciones')" disabled> Cada nota tiene % distinto
+                    </label>
+                </div>
+                <input type="number" id="peso-presentaciones" class="input-peso" placeholder="% Total" disabled>
+            </div>
+            <div class="input-grupo" id="grupo-presentaciones" style="opacity: 0.5; pointer-events: none;">
+                <input type="number" id="nota-presentaciones" step="0.1" min="1.0" max="7.0" placeholder="Nota">
+                <input type="number" id="peso-int-presentaciones" class="input-peso-interno" placeholder="%" min="1" max="100" style="display: none;">
+                <button class="btn-añadir" onclick="agregarNota('presentaciones')">Añadir</button>
+            </div>
+            <div id="lista-presentaciones" class="lista-etiquetas"></div>
+        </div>
+
+        <button class="btn-calcular-notas" onclick="calcularPromedioFinal()">Calcular Promedio Final</button>
+        <div id="resultado-notas" class="resultado-oculto"></div>
+        
+    </div>
+
+    <script src="calculadora.js"></script>
+</body>
+</html>
