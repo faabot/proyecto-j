@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pomodoro-amor-v1';
+const CACHE_NAME = 'pomodoro-amor-v2';
 const urlsToCache = [
   './',
   './index.html',
