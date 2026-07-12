@@ -5,8 +5,8 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #74ebd5, #9ecee6);
+    font-family: 'Times New Roman', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, hsl(320, 100%, 50%), #000000);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -21,7 +21,7 @@ body {
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     text-align: center;
-    max-width: 450px;
+    max-width: 500px;
     width: 100%;
     position: relative; /* Para poder posicionar el botón flotante */
     min-height: 500px;
@@ -48,7 +48,7 @@ body {
 .mensaje-diario h3 {
     color: #e63946;
     margin-bottom: 5px;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .mensaje-diario p {
@@ -152,3 +152,97 @@ button:active { transform: scale(0.95); }
 #pregunta-trivia { font-size: 16px; color: #333; margin-bottom: 15px; }
 #respuesta-trivia { font-size: 18px; font-weight: bold; color: #e63946; margin-top: 15px; margin-bottom: 0; }
 #lector-qr { border-radius: 15px; overflow: hidden; border: 3px solid #ddd; }
+
+/* --- ESTILOS CALCULADORA DE NOTAS --- */
+.seccion-notas {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    text-align: left;
+}
+
+.seccion-notas h3 { font-size: 15px; color: #555; margin-bottom: 10px; }
+
+.input-grupo { display: flex; gap: 10px; }
+.input-grupo input { 
+    flex-grow: 1; 
+    padding: 10px; 
+    border: 2px solid #ddd; 
+    border-radius: 8px; 
+    font-size: 16px;
+    outline: none;
+}
+.input-grupo input:focus { border-color: #74ebd5; }
+
+.btn-añadir { background-color: #00bcd4; color: white; padding: 10px 15px; }
+.btn-añadir:hover { background-color: #0097a7; }
+
+.lista-etiquetas { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
+.etiqueta-nota { 
+    background: #e0f7fa; 
+    color: #00838f; 
+    padding: 6px 12px; 
+    border-radius: 15px; 
+    font-weight: bold; 
+    font-size: 14px; 
+    border: 1px solid #b2ebf2;
+}
+
+.btn-calcular-notas { width: 100%; padding: 15px; font-size: 16px; background-color: #ff4a6b; color: white; margin-top: 10px; }
+.btn-calcular-notas:hover { background-color: #e63946; }
+
+.resultado-oculto { display: none; }
+.resultado-visible { 
+    display: block; 
+    background: #fff0f3; 
+    padding: 20px; 
+    border-radius: 15px; 
+    margin-top: 20px; 
+    font-size: 20px; 
+    font-weight: bold; 
+    color: #d90429; 
+    border: 2px dashed #ffb3c1; 
+    animation: aparecer 0.4s ease; 
+}
+
+/* --- ESTILOS EXTRA PARA PONDERACIÓN INTERNA Y ERRORES --- */
+.toggle-interno {
+    font-size: 13px;
+    color: #666;
+    margin-left: 28px; /* Lo alinea debajo del título principal */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.input-peso-interno {
+    width: 65px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    text-align: center;
+    background-color: #fff9fa; /* Un fondito apenas rosa para distinguirlo */
+}
+
+.input-peso-interno:focus {
+    border-color: #ff4a6b;
+}
+
+/* LA ANIMACIÓN DE ERROR (2 PARPADEOS ROJOS) */
+@keyframes dobleParpadeo {
+    0% { background-color: #ffffff; }
+    25% { background-color: #ffcdd2; } /* Parpadeo 1 */
+    50% { background-color: #ffffff; }
+    75% { background-color: #ffcdd2; } /* Parpadeo 2 */
+    100% { background-color: #ffffff; }
+}
+
+.alerta-parpadeo {
+    animation: dobleParpadeo 3s ease-in-out;
+    border: 1px solid #ff4a6b !important;
+}

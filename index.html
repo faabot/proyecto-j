@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestro Espacio ❤️</title>
-    <link <link rel="stylesheet" href="estilos.css?v=2">
+    <link <link rel="stylesheet" href="estilos.css?v=3">  
     <link rel="manifest" href="manifest.json">
     <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
@@ -20,6 +20,9 @@
             </div>
 
             <div class="menu-vertical">
+                <button class="btn-bloque" onclick="cambiarVista('vista-notas')">
+                    <span class="icono">🎓</span> Calculadora de Notas 
+                </button>
                 <button class="btn-bloque" onclick="cambiarVista('vista-pomodoro')">
                     <span class="icono">🍅</span> Pomodoro
                 </button>
@@ -29,16 +32,17 @@
                 <button class="btn-bloque" onclick="cambiarVista('vista-trivia')">
                     <span class="icono">💌</span> Rincón
                 </button>
-            </div>
+                
+            </div> 
 
             <button class="btn-flotante" onclick="alert('¡Pronto agregaremos más funciones aquí!')">+</button>
         </div>
 
         <div id="vista-pomodoro" class="vista-oculta">
-            <button class="btn-volver" onclick="cambiarVista('vista-inicio')">⬅️ Volver al menú</button>
+            <button class="btn-volver" onclick="cambiarVista('vista-inicio')">⬅ Volver al menú</button>
             
             <h1>Tiempo de Enfoque ❤️</h1>
-            <p>¡A romperla hoy! Concentración al máximo.</p>
+            <p>¿Cuanto vamos a estudiar hoy Julietita?</p>
 
             <div class="configuracion">
                 <input type="number" id="input-minutos" value="25" min="1" max="120">
@@ -57,7 +61,7 @@
         </div>
 
         <div id="vista-qr" class="vista-oculta">
-            <button class="btn-volver" onclick="cambiarVista('vista-inicio')">⬅️ Volver al menú</button>
+            <button class="btn-volver" onclick="cambiarVista('vista-inicio')">⬅ Volver al menú</button>
 
             <h1>Lector de Sorpresas 📷</h1>
             <p>Apunta la cámara al código QR...</p>
@@ -68,8 +72,9 @@
             <div id="resultado-qr" style="margin-top: 15px; font-weight: bold; color: #ff4a6b;"></div>
         </div>
 
+        
         <div id="vista-trivia" class="vista-oculta">
-            <button class="btn-volver" onclick="cambiarVista('vista-inicio')">⬅️ Volver al menú</button>
+            <button class="btn-volver" onclick="cambiarVista('vista-inicio')">⬅ Volver al menú</button>
 
             <h1>Nuestros Momentos ✨</h1>
 
@@ -79,10 +84,104 @@
                 <button id="btn-respuesta" onclick="mostrarRespuesta()">Ver Respuesta</button>
                 <p id="respuesta-trivia"></p>
             </div>
-            <button onclick="siguienteMomento()" style="margin-top: 20px; width: 100%;">Siguiente Recuerdo ➡️</button>
+            <button onclick="siguienteMomento()" style="margin-top: 20px; width: 100%;">Siguiente Recuerdo </button>
         </div>
 
-    </div>
+
+
+        <div id="vista-notas" class="vista-oculta">
+            <button class="btn-volver" onclick="cambiarVista('vista-inicio')">⬅ Volver al menú</button>
+
+            <h1>Calculadora U 🎓</h1>
+            <p>Activa lo que necesites. Si las notas valen distinto, activa la sub-casilla.</p>
+
+            <div class="seccion-notas" id="seccion-certamenes">
+                <div class="cabecera-categoria">
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="check-certamenes" checked onchange="alternarCategoria('certamenes')">
+                            📝 Certámenes
+                        </label>
+                        <label class="toggle-interno">
+                            <input type="checkbox" id="interno-certamenes" onchange="alternarModoInterno('certamenes')"> Cada nota tiene % distinto
+                        </label>
+                    </div>
+                    <input type="number" id="peso-certamenes" class="input-peso" placeholder="% Total">
+                </div>
+                <div class="input-grupo" id="grupo-certamenes">
+                    <input type="number" id="nota-certamenes" step="0.1" min="1.0" max="7.0" placeholder="Nota">
+                    <input type="number" id="peso-int-certamenes" class="input-peso-interno" placeholder="%" min="1" max="100" style="display: none;">
+                    <button class="btn-añadir" onclick="agregarNota('certamenes')">Añadir</button>
+                </div>
+                <div id="lista-certamenes" class="lista-etiquetas"></div>
+            </div>
+
+            <div class="seccion-notas" id="seccion-trabajos">
+                <div class="cabecera-categoria">
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="check-trabajos" checked onchange="alternarCategoria('trabajos')">
+                            📁 Trabajos
+                        </label>
+                        <label class="toggle-interno">
+                            <input type="checkbox" id="interno-trabajos" onchange="alternarModoInterno('trabajos')"> Cada nota tiene % distinto
+                        </label>
+                    </div>
+                    <input type="number" id="peso-trabajos" class="input-peso" placeholder="% Total">
+                </div>
+                <div class="input-grupo" id="grupo-trabajos">
+                    <input type="number" id="nota-trabajos" step="0.1" min="1.0" max="7.0" placeholder="Nota">
+                    <input type="number" id="peso-int-trabajos" class="input-peso-interno" placeholder="%" min="1" max="100" style="display: none;">
+                    <button class="btn-añadir" onclick="agregarNota('trabajos')">Añadir</button>
+                </div>
+                <div id="lista-trabajos" class="lista-etiquetas"></div>
+            </div>
+
+            <div class="seccion-notas" id="seccion-laboratorios">
+                <div class="cabecera-categoria">
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="check-laboratorios" onchange="alternarCategoria('laboratorios')">
+                            🔬 Laboratorios
+                        </label>
+                        <label class="toggle-interno">
+                            <input type="checkbox" id="interno-laboratorios" onchange="alternarModoInterno('laboratorios')" disabled> Cada nota tiene % distinto
+                        </label>
+                    </div>
+                    <input type="number" id="peso-laboratorios" class="input-peso" placeholder="% Total" disabled>
+                </div>
+                <div class="input-grupo" id="grupo-laboratorios" style="opacity: 0.5; pointer-events: none;">
+                    <input type="number" id="nota-laboratorios" step="0.1" min="1.0" max="7.0" placeholder="Nota">
+                    <input type="number" id="peso-int-laboratorios" class="input-peso-interno" placeholder="%" min="1" max="100" style="display: none;">
+                    <button class="btn-añadir" onclick="agregarNota('laboratorios')">Añadir</button>
+                </div>
+                <div id="lista-laboratorios" class="lista-etiquetas"></div>
+            </div>
+
+            <div class="seccion-notas" id="seccion-presentaciones">
+                <div class="cabecera-categoria">
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="check-presentaciones" onchange="alternarCategoria('presentaciones')">
+                            🗣️ Presentaciones
+                        </label>
+                        <label class="toggle-interno">
+                            <input type="checkbox" id="interno-presentaciones" onchange="alternarModoInterno('presentaciones')" disabled> Cada nota tiene % distinto
+                        </label>
+                    </div>
+                    <input type="number" id="peso-presentaciones" class="input-peso" placeholder="% Total" disabled>
+                </div>
+                <div class="input-grupo" id="grupo-presentaciones" style="opacity: 0.5; pointer-events: none;">
+                    <input type="number" id="nota-presentaciones" step="0.1" min="1.0" max="7.0" placeholder="Nota">
+                    <input type="number" id="peso-int-presentaciones" class="input-peso-interno" placeholder="%" min="1" max="100" style="display: none;">
+                    <button class="btn-añadir" onclick="agregarNota('presentaciones')">Añadir</button>
+                </div>
+                <div id="lista-presentaciones" class="lista-etiquetas"></div>
+            </div>
+
+            <button class="btn-calcular-notas" onclick="calcularPromedioFinal()">Calcular Promedio Final</button>
+            <div id="resultado-notas" class="resultado-oculto"></div>
+        </div>
 
     <script>
         // --- 1. LÓGICA DEL MENÚ (SPA) ---
@@ -91,7 +190,7 @@
             document.getElementById('vista-pomodoro').className = 'vista-oculta';
             document.getElementById('vista-qr').className = 'vista-oculta';
             document.getElementById('vista-trivia').className = 'vista-oculta';
-            
+            document.getElementById('vista-notas').className = 'vista-oculta'; 
             document.getElementById(idVista).className = 'vista-activa';
         }
 
@@ -128,7 +227,7 @@
                 } else {
                     clearInterval(idIntervalo);
                     idIntervalo = null;
-                    alert("¡Tiempo cumplido! Hora de un merecido descanso, mi amor. 🥰");
+                    alert("¡Tiempo cumplido! Hora de un merecido descanso preciosota muack");
                 }
             }, 1000);
         }
@@ -179,6 +278,160 @@
                 respuesta: "¡Un combo de Wow! Sushi o aplicamos la promo Junaeb! 🍣"
             }
         ];
+        // --- 5. LÓGICA DE LA CALCULADORA DE NOTAS PRO ---
+        let registroNotas = { certamenes: [], trabajos: [], laboratorios: [], presentaciones: [] };
+
+        function alternarCategoria(categoria) {
+            const isChecked = document.getElementById(`check-${categoria}`).checked;
+            const grupo = document.getElementById(`grupo-${categoria}`);
+            const pesoInput = document.getElementById(`peso-${categoria}`);
+            const internoCheck = document.getElementById(`interno-${categoria}`);
+
+            if (isChecked) {
+                grupo.style.opacity = "1";
+                grupo.style.pointerEvents = "auto";
+                pesoInput.disabled = false;
+                internoCheck.disabled = false;
+            } else {
+                grupo.style.opacity = "0.5";
+                grupo.style.pointerEvents = "none";
+                pesoInput.disabled = true;
+                internoCheck.disabled = true;
+            }
+        }
+
+        function alternarModoInterno(categoria) {
+            const esPonderadoInterno = document.getElementById(`interno-${categoria}`).checked;
+            const inputPesoInterno = document.getElementById(`peso-int-${categoria}`);
+            
+            inputPesoInterno.style.display = esPonderadoInterno ? 'block' : 'none';
+            
+            // Si cambia las reglas del juego, borramos las notas de esa categoría para no romper el cálculo
+            registroNotas[categoria] = [];
+            actualizarVisualNotas(categoria);
+        }
+
+        function agregarNota(categoria) {
+            const esPonderadoInterno = document.getElementById(`interno-${categoria}`).checked;
+            const inputNota = document.getElementById(`nota-${categoria}`);
+            const inputPesoInterno = document.getElementById(`peso-int-${categoria}`);
+            
+            let notaVal = parseFloat(inputNota.value);
+            let pesoVal = esPonderadoInterno ? parseFloat(inputPesoInterno.value) : null;
+
+            if (isNaN(notaVal) || notaVal < 1.0 || notaVal > 7.0) {
+                return alert("Mi amor, ingresa una nota válida entre 1.0 y 7.0 🥺");
+            }
+
+            if (esPonderadoInterno && (isNaN(pesoVal) || pesoVal <= 0)) {
+                return alert("Por favor, ingresa el porcentaje que vale esta nota.");
+            }
+
+            registroNotas[categoria].push({ nota: notaVal, peso: pesoVal });
+            
+            inputNota.value = ""; 
+            if (esPonderadoInterno) inputPesoInterno.value = "";
+            
+            actualizarVisualNotas(categoria);
+        }
+
+        function actualizarVisualNotas(categoria) {
+            const contenedor = document.getElementById(`lista-${categoria}`);
+            contenedor.innerHTML = ""; 
+            registroNotas[categoria].forEach(item => {
+                // Si tiene peso, lo muestra al lado en pequeñito
+                let textoExtra = item.peso !== null ? ` <small style="font-size:11px; opacity:0.8;">(${item.peso}%)</small>` : "";
+                contenedor.innerHTML += `<span class="etiqueta-nota">${item.nota.toFixed(1)}${textoExtra}</span>`;
+            });
+        }
+
+        function calcularPromedioFinal() {
+            const categorias = ['certamenes', 'trabajos', 'laboratorios', 'presentaciones'];
+            let promedioFinal = 0;
+            let sumaPorcentajesGlobales = 0;
+            let errorEncontrado = false;
+
+            for (let cat of categorias) {
+                const estaActiva = document.getElementById(`check-${cat}`).checked;
+                
+                if (estaActiva) {
+                    let pesoGlobal = parseFloat(document.getElementById(`peso-${cat}`).value);
+                    let esPonderadoInterno = document.getElementById(`interno-${cat}`).checked;
+                    let notas = registroNotas[cat];
+
+                    if (isNaN(pesoGlobal)) {
+                        alert(`Falta el porcentaje Total de la categoría ${cat}.`);
+                        return;
+                    }
+                    sumaPorcentajesGlobales += pesoGlobal;
+
+                    if (notas.length > 0) {
+                        if (esPonderadoInterno) {
+                            // SUMA 100% INTERNA
+                            let sumaPesosInternos = notas.reduce((acc, curr) => acc + curr.peso, 0);
+                            if (sumaPesosInternos !== 100) {
+                                alert(`¡Ojo! Las notas en ${cat} suman ${sumaPesosInternos}%. Deben sumar exactamente 100%.`);
+                                dispararAlertaVisual(cat);
+                                errorEncontrado = true;
+                                break; // Detiene el cálculo
+                            }
+                            // Promedio interno ponderado
+                            let promedioCat = notas.reduce((acc, curr) => acc + (curr.nota * (curr.peso / 100)), 0);
+                            promedioFinal += promedioCat * (pesoGlobal / 100);
+                        } else {
+                            // Promedio interno simple
+                            let promedioCat = notas.reduce((acc, curr) => acc + curr.nota, 0) / notas.length;
+                            promedioFinal += promedioCat * (pesoGlobal / 100);
+                        }
+                    } else {
+                        alert(`Activaste ${cat} pero no le pusiste notas. Apágala si no la necesitas.`);
+                        return;
+                    }
+                }
+            }
+
+            if (errorEncontrado) return; // Si hubo error en los porcentajes internos, no avanza
+
+            if (sumaPorcentajesGlobales !== 100) {
+                alert(`Los porcentajes Globales suman ${sumaPorcentajesGlobales}%. Deben sumar exactamente 100% para calcular la asignatura.`);
+                return;
+            }
+
+            mostrarVeredicto(promedioFinal);
+        }
+
+        function dispararAlertaVisual(categoria) {
+            const seccion = document.getElementById(`seccion-${categoria}`);
+            seccion.classList.add("alerta-parpadeo");
+            // Lo quita después de 1 segundo para que pueda volver a parpadear si se equivoca de nuevo
+            setTimeout(() => {
+                seccion.classList.remove("alerta-parpadeo");
+            }, 1000);
+        }
+
+        function mostrarVeredicto(promedioFinal) {
+            const divResultado = document.getElementById("resultado-notas");
+            let mensaje = "";
+            let colorTexto = "";
+
+            if (promedioFinal < 4.0) {
+                mensaje = "Lo siento...💔 vayamos por sushi? :(";
+                colorTexto = "#d90429";
+            } else if (promedioFinal < 5.0) {
+                mensaje = "¡Aprobada! 🎉 Sufrido pero se logró. ¡El 4 es nota, lo demás es lujo!";
+                colorTexto = "#f57c00";
+            } else {
+                mensaje = "Una chiquilla taaaaaan inteligente, ¡A celebrar!";
+                colorTexto = "#2e7d32";
+            }
+
+            divResultado.innerHTML = `
+                <span style="font-size: 16px; color: #555; font-weight: normal;">Tu Promedio Final es:</span>
+                <span style="font-size: 42px; display: block; margin: 10px 0; color: ${colorTexto};">${promedioFinal.toFixed(2)}</span>
+                <span style="font-size: 15px; font-weight: normal; color: #444;">${mensaje}</span>
+            `;
+            divResultado.className = "resultado-visible";
+        }
 
         let indiceActual = 0;
 
