@@ -7,112 +7,148 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #74ebd5, #9ecee6);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; 
+    padding: 20px;
     color: #333;
 }
 
-.pomodoro-container {
-    background: rgba(255, 255, 255, 0.92);
-    padding: 35px;
+.app-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px 25px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     text-align: center;
-    max-width: 400px;
-    width: 90%;
+    max-width: 450px;
+    width: 100%;
+    position: relative; /* Para poder posicionar el botón flotante */
+    min-height: 500px;
 }
 
-h1 {
-    font-size: 26px;
-    margin-bottom: 10px;
-    color: #ff4a6b;
+/* --- CLASES PARA OCULTAR/MOSTRAR --- */
+.vista-oculta { display: none; }
+.vista-activa { display: block; animation: aparecer 0.4s ease-in-out; }
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-p {
-    font-size: 14px;
-    color: #666;
+/* --- ESTILOS DEL NUEVO MENÚ DE INICIO --- */
+.mensaje-diario {
+    background: #ffe6ea;
+    border-radius: 15px;
+    padding: 15px;
     margin-bottom: 30px;
+    border: 2px dashed #ffb3c1;
 }
 
-.reloj {
-    font-size: 68px;
-    font-weight: bold;
-    margin-bottom: 35px;
-    color: #222;
-    letter-spacing: 2px;
+.mensaje-diario h3 {
+    color: #e63946;
+    margin-bottom: 5px;
+    font-size: 18px;
 }
 
-.botones {
+.mensaje-diario p {
+    margin-bottom: 0;
+    font-style: italic;
+}
+
+.menu-vertical {
     display: flex;
-    gap: 12px;
-    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 60px; /* Espacio para el botón flotante */
 }
 
-button {
-    padding: 12px 22px;
-    font-size: 15px;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-button:active {
-    transform: scale(0.96);
-}
-
-#btn-iniciar {
-    background-color: #4caf50;
-    color: white;
-}
-#btn-iniciar:hover { background-color: #43a047; }
-
-#btn-pausar {
-    background-color: #ff9800;
-    color: white;
-}
-#btn-pausar:hover { background-color: #fb8c00; }
-
-#btn-reiniciar {
-    background-color: #f44336;
-    color: white;
-}
-#btn-reiniciar:hover { background-color: #e53935; }
-
-/* --- Estilos para la nueva configuración de tiempo --- */
-.configuracion {
-    margin-bottom: 25px;
+.btn-bloque {
+    width: 100%;
+    padding: 20px;
+    font-size: 18px;
+    background-color: #ffffff;
+    color: #333;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
     display: flex;
+    align-items: center;
     justify-content: center;
     gap: 10px;
-    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
-#input-minutos {
-    width: 70px;
-    padding: 10px;
-    font-size: 16px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    text-align: center;
-    outline: none;
-    transition: border-color 0.3s;
+.btn-bloque:hover {
+    border-color: #74ebd5;
+    background-color: #f2fcfb;
+    transform: translateY(-2px);
 }
 
-#input-minutos:focus {
-    border-color: #ff4a6b;
+.icono {
+    font-size: 24px;
 }
 
-#btn-aplicar {
-    background-color: #2196f3;
+.btn-flotante {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #ff4a6b;
     color: white;
-    padding: 10px 15px;
+    font-size: 30px;
+    line-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: 0 5px 15px rgba(255, 74, 107, 0.4);
 }
 
-#btn-aplicar:hover {
-    background-color: #1e88e5;
+.btn-flotante:hover {
+    background-color: #e63946;
+    transform: translateX(-50%) scale(1.05);
 }
+
+.btn-volver {
+    background: none;
+    color: #555;
+    box-shadow: none;
+    padding: 5px;
+    margin-bottom: 20px;
+    text-align: left;
+    display: block;
+}
+
+.btn-volver:hover {
+    color: #ff4a6b;
+    transform: translateX(-5px);
+}
+
+/* --- TIPOGRAFÍA GENERAL --- */
+h1 { font-size: 24px; margin-bottom: 10px; color: #ff4a6b; }
+p { font-size: 14px; color: #666; margin-bottom: 25px; }
+
+/* --- ESTILOS POMODORO --- */
+.configuracion { margin-bottom: 20px; display: flex; justify-content: center; gap: 10px; }
+#input-minutos { width: 60px; padding: 8px; font-size: 16px; border: 2px solid #ddd; border-radius: 8px; text-align: center; }
+.reloj { font-size: 60px; font-weight: bold; margin-bottom: 30px; color: #222; }
+.botones { display: flex; gap: 10px; justify-content: center; }
+
+/* --- ESTILOS BOTONES GENERALES --- */
+button { padding: 10px 18px; font-size: 14px; font-weight: bold; border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); }
+button:active { transform: scale(0.95); }
+#btn-aplicar { background-color: #2196f3; color: white; }
+#btn-iniciar { background-color: #4caf50; color: white; }
+#btn-pausar { background-color: #ff9800; color: white; }
+#btn-reiniciar { background-color: #f44336; color: white; }
+#btn-camara, #btn-respuesta { background-color: #9c27b0; color: white; }
+
+/* --- ESTILOS TRIVIA Y CÁMARA --- */
+.carta-kawaii { background: #fff0f3; border-radius: 15px; padding: 20px; border: 2px dashed #ffb3c1; }
+#imagen-trivia { width: 120px; height: 120px; object-fit: contain; margin-bottom: 15px; }
+#pregunta-trivia { font-size: 16px; color: #333; margin-bottom: 15px; }
+#respuesta-trivia { font-size: 18px; font-weight: bold; color: #e63946; margin-top: 15px; margin-bottom: 0; }
+#lector-qr { border-radius: 15px; overflow: hidden; border: 3px solid #ddd; }

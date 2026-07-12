@@ -3,68 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Pomodoro Favorito</title>
+    <title>Nuestro Espacio ❤️</title>
     <link rel="stylesheet" href="estilos.css">
     <link rel="manifest" href="manifest.json">
+    <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
 <body>
 
-    <div class="pomodoro-container">
-        <h1>Tiempo de Enfoque ❤️</h1>
-        <p>¡A romperla hoy! Concentración al máximo.</p>
+    <div class="app-container">
 
-        <div class="configuracion">
-            <input type="number" id="input-minutos" value="25" min="1" max="120" title="Ingresa los minutos">
-            <button id="btn-aplicar" onclick="aplicarTiempo()">Aplicar</button>
+        <div id="vista-inicio" class="vista-activa">
+            
+            <div class="mensaje-diario">
+                <h3>Mensaje Diario 💌</h3>
+                <p id="texto-mensaje-diario">"Buenos días, mi amor. ¡Que hoy sea un día increíble para ti!"</p>
+            </div>
+
+            <div class="menu-vertical">
+                <button class="btn-bloque" onclick="cambiarVista('vista-pomodoro')">
+                    <span class="icono">🍅</span> Pomodoro
+                </button>
+                <button class="btn-bloque" onclick="cambiarVista('vista-qr')">
+                    <span class="icono">📷</span> Escáner
+                </button>
+                <button class="btn-bloque" onclick="cambiarVista('vista-trivia')">
+                    <span class="icono">💌</span> Rincón
+                </button>
+            </div>
+
+            <button class="btn-flotante" onclick="alert('¡Pronto agregaremos más funciones aquí!')">+</button>
         </div>
 
-        <div class="reloj">
-            <span id="minutos">25</span>:<span id="segundos">00</span>
+        <div id="vista-pomodoro" class="vista-oculta">
+            <button class="btn-volver" onclick="cambiarVista('vista-inicio')">⬅️ Volver al menú</button>
+            
+            <h1>Tiempo de Enfoque ❤️</h1>
+            <p>¡A romperla hoy! Concentración al máximo.</p>
+
+            <div class="configuracion">
+                <input type="number" id="input-minutos" value="25" min="1" max="120">
+                <button id="btn-aplicar" onclick="aplicarTiempo()">Aplicar</button>
+            </div>
+
+            <div class="reloj">
+                <span id="minutos">25</span>:<span id="segundos">00</span>
+            </div>
+
+            <div class="botones">
+                <button id="btn-iniciar" onclick="iniciarCronometro()">Iniciar</button>
+                <button id="btn-pausar" onclick="pausarCronometro()">Pausar</button>
+                <button id="btn-reiniciar" onclick="reiniciarCronometro()">Reiniciar</button>
+            </div>
         </div>
 
-        <div class="botones">
-            <button id="btn-iniciar" onclick="iniciarCronometro()">Iniciar</button>
-            <button id="btn-pausar" onclick="pausarCronometro()">Pausar</button>
-            <button id="btn-reiniciar" onclick="reiniciarCronometro()">Reiniciar</button>
+        <div id="vista-qr" class="vista-oculta">
+            <button class="btn-volver" onclick="cambiarVista('vista-inicio')">⬅️ Volver al menú</button>
+
+            <h1>Lector de Sorpresas 📷</h1>
+            <p>Apunta la cámara al código QR...</p>
+            
+            <button id="btn-camara" onclick="iniciarQR()" style="margin-bottom: 15px;">Encender Cámara</button>
+            
+            <div id="lector-qr"></div>
+            <div id="resultado-qr" style="margin-top: 15px; font-weight: bold; color: #ff4a6b;"></div>
         </div>
+
+        <div id="vista-trivia" class="vista-oculta">
+            <button class="btn-volver" onclick="cambiarVista('vista-inicio')">⬅️ Volver al menú</button>
+
+            <h1>Nuestros Momentos ✨</h1>
+
+            <div class="carta-kawaii" id="tarjeta-trivia">
+                <img id="imagen-trivia" src="https://cdn-icons-png.flaticon.com/512/8011/8011116.png" alt="Recuerdo">
+                <h3 id="pregunta-trivia">Cargando recuerdo...</h3>
+                <button id="btn-respuesta" onclick="mostrarRespuesta()">Ver Respuesta</button>
+                <p id="respuesta-trivia"></p>
+            </div>
+            <button onclick="siguienteMomento()" style="margin-top: 20px; width: 100%;">Siguiente Recuerdo ➡️</button>
+        </div>
+
     </div>
 
     <script>
-        let tiempoInicial = 25 * 60; // 25 minutos por defecto
+        // --- 1. LÓGICA DEL MENÚ (SPA) ---
+        function cambiarVista(idVista) {
+            document.getElementById('vista-inicio').className = 'vista-oculta';
+            document.getElementById('vista-pomodoro').className = 'vista-oculta';
+            document.getElementById('vista-qr').className = 'vista-oculta';
+            document.getElementById('vista-trivia').className = 'vista-oculta';
+            
+            document.getElementById(idVista).className = 'vista-activa';
+        }
+
+        // --- 2. LÓGICA DEL POMODORO ---
+        let tiempoInicial = 25 * 60; 
         let tiempoRestante = tiempoInicial;
         let idIntervalo = null;
-
-        const minutosPantalla = document.getElementById("minutos");
-        const segundosPantalla = document.getElementById("segundos");
-        const inputMinutos = document.getElementById("input-minutos"); // Conectamos la cajita de texto
+        const minPantalla = document.getElementById("minutos");
+        const segPantalla = document.getElementById("segundos");
+        const inputMin = document.getElementById("input-minutos");
 
         function actualizarPantalla() {
             let min = Math.floor(tiempoRestante / 60);
             let seg = tiempoRestante % 60;
-
-            minutosPantalla.textContent = min < 10 ? "0" + min : min;
-            segundosPantalla.textContent = seg < 10 ? "0" + seg : seg;
+            minPantalla.textContent = min < 10 ? "0" + min : min;
+            segPantalla.textContent = seg < 10 ? "0" + seg : seg;
         }
 
-        // NUEVA FUNCIÓN: Lee el input y cambia el reloj
         function aplicarTiempo() {
-            let nuevosMinutos = parseInt(inputMinutos.value);
-            
-            // Verificamos que no hayan escrito letras o números negativos
-            if (isNaN(nuevosMinutos) || nuevosMinutos <= 0) {
-                alert("Por favor, ingresa un número de minutos válido mayor a 0.");
-                return;
-            }
-
-            tiempoInicial = nuevosMinutos * 60; // Convertimos a segundos
-            pausarCronometro(); // Si estaba corriendo, lo pausamos
-            tiempoRestante = tiempoInicial; // Reseteamos con el nuevo tiempo
+            let nuevosMin = parseInt(inputMin.value);
+            if (isNaN(nuevosMin) || nuevosMin <= 0) return alert("Ingresa un número válido.");
+            tiempoInicial = nuevosMin * 60;
+            pausarCronometro();
+            tiempoRestante = tiempoInicial;
             actualizarPantalla();
         }
 
         function iniciarCronometro() {
             if (idIntervalo !== null) return;
-
             idIntervalo = setInterval(() => {
                 if (tiempoRestante > 0) {
                     tiempoRestante--;
@@ -87,14 +143,73 @@
             tiempoRestante = tiempoInicial;
             actualizarPantalla();
         }
+
+        // --- 3. LÓGICA DEL LECTOR QR ---
+        function iniciarQR() {
+            const html5QrCode = new Html5Qrcode("lector-qr");
+            document.getElementById("btn-camara").style.display = "none"; 
+            
+            html5QrCode.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: { width: 250, height: 250 } },
+                (textoDecodificado) => {
+                    document.getElementById("resultado-qr").innerHTML = `💌 ¡Mensaje secreto: ${textoDecodificado}!`;
+                    html5QrCode.stop(); 
+                    document.getElementById("btn-camara").style.display = "block"; 
+                },
+                (error) => { /* Silenciar errores de lectura */ }
+            );
+        }
+
+        // --- 4. LÓGICA DE LA TRIVIA / CARTITAS ---
+        const momentos = [
+            {
+                imagen: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png", 
+                pregunta: "¿Cuál es mi regla de oro e inquebrantable al pedir hamburguesas?",
+                respuesta: "¡SIN CEBOLLA! 🍔"
+            },
+            {
+                imagen: "https://cdn-icons-png.flaticon.com/512/4343/4343286.png",
+                pregunta: "¿Cuántos paneles solares tiene mi proyecto de tesis en la UdeC?",
+                respuesta: "¡176, ni uno menos, para optimizar el espacio! ☀️"
+            },
+            {
+                imagen: "https://cdn-icons-png.flaticon.com/512/2254/2254504.png",
+                pregunta: "¿Qué pedimos cuando hay antojo de algo rico?",
+                respuesta: "¡Un combo de Wow! Sushi o aplicamos la promo Junaeb! 🍣"
+            }
+        ];
+
+        let indiceActual = 0;
+
+        function cargarMomento() {
+            document.getElementById("imagen-trivia").src = momentos[indiceActual].imagen;
+            document.getElementById("pregunta-trivia").textContent = momentos[indiceActual].pregunta;
+            document.getElementById("respuesta-trivia").textContent = momentos[indiceActual].respuesta;
+            document.getElementById("respuesta-trivia").style.display = "none";
+            document.getElementById("btn-respuesta").style.display = "inline-block";
+        }
+
+        function mostrarRespuesta() {
+            document.getElementById("respuesta-trivia").style.display = "block";
+            document.getElementById("btn-respuesta").style.display = "none";
+        }
+
+        function siguienteMomento() {
+            indiceActual++;
+            if (indiceActual >= momentos.length) indiceActual = 0;
+            cargarMomento();
+        }
+
+        cargarMomento(); 
     </script>
 
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
-                .then(registro => console.log('Service Worker registrado con éxito', registro))
-                .catch(error => console.log('Error al registrar:', error));
+                .then(reg => console.log('SW registrado', reg))
+                .catch(err => console.log('Error SW:', err));
             });
         }
     </script>
