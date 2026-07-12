@@ -1,0 +1,17 @@
+{
+  "short_name": "Pomodoro",
+  "name": "Tu Pomodoro Favorito",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/843/843242.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#74ebd5",
+  "theme_color": "#ff4a6b",
+  "display": "standalone",
+  "orientation": "portrait"
+  }
