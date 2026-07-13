@@ -40,32 +40,7 @@ function verificarClave() {
     }
 }
 
-// --- LÓGICA DE LA PROPUESTA (El botón escurridizo) ---
-
-// Variable global para recordar el tamaño del botón "Sí"
-let escalaSi = 1;
-
-function escaparBoton() {
-    const btnNo = document.getElementById('btn-no');
-    const btnSi = document.getElementById('btn-si');
-    
-    // 1. El salto del botón "No" (se mantiene igual)
-    const movimientoX = (Math.random() * 400) - 200;
-    const movimientoY = (Math.random() * 400) - 200;
-
-    btnNo.style.transition = "none";
-    btnNo.style.transform = `translate(${movimientoX}px, ${movimientoY}px)`;
-    
-    const frases = ["¡Nop! 🤪", "¡Casi! 🏃‍♂️", "¿Segura? 👀", "Intenta de nuevo 😂"];
-    btnNo.textContent = frases[Math.floor(Math.random() * frases.length)];
-
-    // 2. HACER CRECER EL BOTÓN "SÍ"
-    escalaSi += 0.3; // Crece un 30% adicional cada vez que intenta atrapar el "No"
-    
-    // Le aplicamos la escala al botón verde con una transición suave
-    btnSi.style.transform = `scale(${escalaSi})`;
-    btnSi.style.transition = "transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)";
-}
+// --- LÓGICA DEL DIARIO PIXEL ART ---
 
 let paginaActual = 1;
 let temporizadorSorpresa = null; // Guardamos el temporizador aquí
@@ -102,4 +77,36 @@ function cambiarPagina(direccion) {
         // Si retrocede a la página 1 o 2, escondemos el botón de aceptar
         btnAceptar.style.display = 'none';
     }
+}
+
+// --- LA GRAN CELEBRACIÓN ---//
+function celebrarGranMomento() {
+    // 1. Cañón izquierdo
+    confetti({
+        particleCount: 150, // Cantidad de papelitos
+        spread: 80,         // Qué tan abierto es el disparo
+        origin: { x: 0.1, y: 0.6 } // Empieza desde el lado izquierdo
+    });
+
+    // 2. Cañón derecho
+    confetti({
+        particleCount: 150,
+        spread: 80,
+        origin: { x: 0.9, y: 0.6 } // Empieza desde el lado derecho
+    });
+
+    // 3. Pequeño cañón central sorpresa después de medio segundo
+    setTimeout(() => {
+        confetti({
+            particleCount: 200,
+            spread: 100,
+            origin: { x: 0.5, y: 0.7 },
+            colors: ['#ff0000', '#ffb3c1', '#ffffff'] // Confeti con los colores de tu app
+        });
+    }, 500);
+
+    // 4. El mensaje final (esperamos 1.5 segundos para que vea el confeti)
+    setTimeout(() => {
+        alert('¡Dijo que SÍ! 🎉❤️ Oficialmente pololos.');
+    }, 1500);
 }
