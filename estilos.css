@@ -230,3 +230,65 @@ body {
     animation: pulsoCandadoAbierto 0.6s ease-in-out forwards;
     border-color: #ff4a6b !important;
 }
+
+/* ==========================================================================
+   MUNDO MÓVIL: Estas reglas SOLO se aplican en celulares y tablets
+   ========================================================================== */
+@media (max-width: 768px) {
+    
+    /* 1. Ajustamos el contenedor principal del menú para que no use márgenes gigantes */
+    .app-container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    /* 2. Achicamos los textos generales para que no se desborden */
+    h1 { font-size: 20px; }
+    h2 { font-size: 18px !important; }
+    p { font-size: 13px !important; }
+
+    /* 3. REESTRUCTURACIÓN DEL LIBRO ABIERTO (LA PROPUESTA) 
+       En PC se ve hermoso de lado a lado (horizontal), pero en celular 
+       es mejor que se vea vertical (la foto arriba y la carta abajo). */
+    .libro-abierto {
+        flex-direction: column; /* Cambia de horizontal a vertical */
+        height: auto; /* Permite que el alto crezca según el texto */
+        max-height: 85vh; /* Evita que tape toda la pantalla del teléfono */
+        overflow-y: auto; /* Si el texto es largo, añade un scroll interno suave */
+        background-image: none; /* Quitamos la línea del lomo central porque ya no dobla ahí */
+        padding: 10px 0;
+    }
+
+    /* Las páginas internas ahora ocupan el 100% del ancho del celular */
+    .pagina-izquierda, .pagina-derecha {
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .pagina-izquierda img {
+        max-height: 200px; /* Controlamos que la foto no sea gigante en el celular */
+        margin-bottom: 0;
+    }
+
+    /* 4. Ajustamos los botones de la propuesta para que quepan cómodos */
+    .botones-propuesta {
+        width: 100%;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .botones-propuesta button {
+        padding: 10px 15px;
+        font-size: 0.95rem;
+    }
+
+    /* 5. El candado secreto lo hacemos un poquito más discreto en celular */
+    #btn-candado {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        bottom: 20px;
+        left: 20px;
+    }
+}
