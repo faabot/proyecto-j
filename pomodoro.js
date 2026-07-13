@@ -34,15 +34,15 @@ function actualizarTextosUI() {
 
     if (faseActual === 'ESTUDIO') {
         titulo.textContent = "Tiempo de Estudio ❤️";
-        subtitulo.textContent = "Concentración al máximo.";
+        subtitulo.textContent = "Concentración preciosa, ojo piojo.";
         reloj.style.color = "#222";
     } else if (faseActual === 'CORTO') {
         titulo.textContent = "Descanso Corto ☕";
-        subtitulo.textContent = "¡Bien hecho! Estira las piernas unos minutos.";
+        subtitulo.textContent = "¡Bien hecho! Estira las piernas unos minutos o anda a comer algo muack.";
         reloj.style.color = "#4caf50"; // Verde
     } else {
         titulo.textContent = "Descanso Largo 🛋️";
-        subtitulo.textContent = "¡Sección completada! Te mereces un buen relajo.";
+        subtitulo.textContent = "¡Sección completada! Te mereces un buen relajo y unos besitos muack.";
         reloj.style.color = "#2196f3"; // Azul
     }
 }

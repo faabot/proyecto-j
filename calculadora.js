@@ -147,11 +147,11 @@ function mostrarVeredicto(promedio) {
         cajaResultado.style.backgroundColor = "#d4edda";
         cajaResultado.style.color = "#155724";
         cajaResultado.style.border = "1px solid #c3e6cb";
-        cajaResultado.innerHTML = `¡Felicidades! 🎉<br>Tu promedio final es: <span style="font-size: 1.5rem;">${notaFinal}</span><br><small>Aprobaste la asignatura.</small>`;
+        cajaResultado.innerHTML = `¡Felicidades Julietitaa! 🎉<br>Tu promedio final es: <span style="font-size: 1.5rem;">${notaFinal}</span><br><small>Aprobaste la asignatura.</small>`;
     } else {
         cajaResultado.style.backgroundColor = "#f8d7da";
         cajaResultado.style.color = "#721c24";
         cajaResultado.style.border = "1px solid #f5c6cb";
-        cajaResultado.innerHTML = `Peligro 🚨<br>Tu promedio final es: <span style="font-size: 1.5rem;">${notaFinal}</span><br><small>Requieres mejorar para aprobar.</small>`;
+        cajaResultado.innerHTML = `Peligro 🚨<br>Tu promedio final es: <span style="font-size: 1.5rem;">${notaFinal}</span><br><small>Lo siento, tal parece son malas noticias :c.</small>`;
     }
 }
