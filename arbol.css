@@ -1,0 +1,290 @@
+/* --- ESTILOS DEL ÁRBOL (VERSIÓN CRECIMIENTO TIKTOK) --- */
+
+body {
+    /* Los colores EXACTOS del video que viste */
+    background-color: #F5E8DC; 
+    color: #5C4033; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-volver {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    background-color: white;
+    color: #5C4033;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    z-index: 100;
+}
+
+.contenedor-principal {
+    display: flex;
+    width: 90%;
+    max-width: 1000px;
+    height: 80vh;
+    background: rgba(255, 255, 255, 0.4); /* Fondo semi transparente para que luzca el #F5E8DC */
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(92, 64, 51, 0.1);
+    overflow: hidden;
+}
+
+/* --- LADO IZQUIERDO: TEXTO Y RELOJ --- */
+.panel-texto {
+    width: 50%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+#carta-maquina {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    min-height: 200px; 
+    border-left: 4px solid #5C4033;
+    padding-left: 15px;
+}
+
+.cursor {
+    display: inline-block;
+    width: 3px;
+    background-color: #5C4033;
+    animation: parpadeo 0.8s infinite;
+}
+
+@keyframes parpadeo { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+.contenedor-contador {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.titulo-contador { margin: 0 0 10px 0; font-weight: bold; font-size: 1.1rem; }
+#reloj-amor { font-size: 1.2rem; font-weight: bold; }
+#reloj-amor span { font-size: 1.5rem; }
+
+/* --- LADO DERECHO: EL ÁRBOL ANIMADO --- */
+.panel-arbol {
+    width: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#arbol {
+    position: relative;
+    width: 300px;
+    height: 400px;
+}
+
+/* =========================================
+   1. LA SEMILLA QUE CAE
+   ========================================= */
+.semilla {
+    position: absolute;
+    top: -50px; /* Empieza fuera de la pantalla arriba */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    z-index: 10;
+    /* Cae en 1s, espera 0.2s y luego desaparece encogiéndose */
+    animation: 
+        caerSemilla 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards,
+        desaparecerSemilla 0.5s ease-in forwards 1.2s;
+}
+
+@keyframes caerSemilla {
+    to { top: 370px; } /* Toca el "suelo" */
+}
+
+@keyframes desaparecerSemilla {
+    to { opacity: 0; transform: translateX(-50%) scale(0); }
+}
+
+/* =========================================
+   2. EL ÁRBOL ORGÁNICO (SVG)
+   ========================================= */
+.arbol-svg {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 300px;
+    z-index: 2;
+}
+
+/* Estilo general para todas las líneas del árbol */
+.trazo-arbol {
+    fill: none;
+    stroke: #8b5a2b; /* Color madera */
+    stroke-linecap: round; /* Puntas redondeadas y suaves */
+    stroke-linejoin: round;
+    /* EL TRUCO MÁGICO: Crea una línea punteada gigante y la oculta */
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+}
+
+/* El tronco es más grueso y nace después de la semilla */
+.tronco-svg {
+    stroke-width: 14;
+    /* Empieza a crecer justo cuando la semilla desaparece (1.2s) */
+    animation: dibujar 1.5s ease-out forwards 1.2s;
+}
+
+/* Las ramas son más delgadas y nacen del tronco */
+.rama-izq-svg, .rama-der-svg {
+    stroke-width: 10;
+}
+
+.rama-izq-svg {
+    animation: dibujar 1s ease-out forwards 2s; /* Nace cuando el tronco va por la mitad */
+}
+
+.rama-der-svg {
+    animation: dibujar 1s ease-out forwards 2.3s;
+}
+
+/* La animación que "dibuja" la línea reduciendo el offset a cero */
+@keyframes dibujar {
+    to { stroke-dashoffset: 0; }
+}
+
+/* =========================================
+   3. LA COPA (Reajuste de posición)
+   ========================================= */
+#copa-arbol {
+    position: absolute;
+    top: -20px; /* Un poco más arriba para encajar con el nuevo árbol */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    z-index: 3;
+    animation: respirar 4s ease-in-out infinite;
+    animation-delay: 6s; /* Empieza a respirar cuando todo terminó de crecer */
+}
+
+
+/* 4. EL FLORECIMIENTO DE LOS CORAZONES */
+.corazon-hoja {
+    position: absolute;
+    user-select: none;
+    transform: scale(0); /* Invisibles al principio */
+    /* La animación se asigna en el JS para darles un retraso distinto a cada uno */
+}
+
+@keyframes floracion {
+    0% { transform: scale(0); }
+    80% { transform: scale(1.4); } /* El "Pop" de rebote */
+    100% { transform: scale(1); }
+}
+
+/* --- RESPONSIVE PARA CELULARES --- */
+@media (max-width: 768px) {
+    .contenedor-principal { flex-direction: column; height: auto; margin-top: 60px; }
+    .panel-texto, .panel-arbol { width: 100%; }
+    .panel-texto { padding: 30px 20px; }
+    .panel-arbol { height: 350px; }
+}
+
+/* =========================================
+   LA COREOGRAFÍA PERFECTA (Ventana Deslizante)
+   ========================================= */
+
+/* 1. La Ventana Mágica */
+.contenedor-principal {
+    position: relative;
+    width: 1000px;
+    max-width: 95vw;
+    height: 80vh;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(92, 64, 51, 0.1);
+    overflow: hidden;
+    display: block; /* Quitamos el flexbox aquí en PC */
+    margin: 0 auto;
+    
+    /* LA MAGIA: Animamos el tamaño de la ventana entera, no lo de adentro */
+    transition: max-width 1.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* ACTO 1: La ventana arranca pequeña (solo cabe el árbol) */
+.contenedor-principal.arbol-centrado {
+    max-width: 500px; 
+}
+
+/* 2. El Panel del Árbol (Se ancla firmemente a la derecha) */
+.panel-arbol {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 500px; /* Tamaño rígido para que la física del árbol no se rompa */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+/* 3. El Panel del Texto (Se ancla firmemente a la izquierda) */
+.panel-texto {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 500px; /* Tamaño rígido para que la letra no se aplaste */
+    height: 100%;
+    padding: 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 1;
+    
+    /* El texto aparece suavemente 1 segundo después de que la ventana crece */
+    transition: opacity 0.8s ease 1s; 
+}
+
+/* En el Acto 1, el texto es invisible */
+.arbol-centrado .panel-texto {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* =========================================
+   RESPONSIVE PARA CELULARES
+   ========================================= */
+@media (max-width: 768px) {
+    .contenedor-principal {
+        max-width: 95vw !important;
+        height: auto;
+        display: flex; /* En celular sí usamos flex para apilarlos de arriba a abajo */
+        flex-direction: column;
+        margin-top: 60px;
+    }
+    
+    .panel-texto, .panel-arbol {
+        position: relative; /* Quitamos lo absoluto para que no choquen */
+        width: 100%;
+    }
+    
+    .panel-texto { padding: 30px 20px; transition: opacity 1s ease 0.5s; }
+    .panel-arbol { height: 350px; }
+    
+    /* En celular, ocultamos el texto al principio y luego aparece abajo */
+    .arbol-centrado .panel-texto { display: none; }
+}
