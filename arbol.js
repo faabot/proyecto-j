@@ -41,7 +41,7 @@ window.onload = () => {
 // --- 2. GENERADOR DEL CORAZÓN (Ecuación Paramétrica) ---
 function generarCopaCorazonMatematica() {
     const copa = document.getElementById("copa-corazon");
-    const numParticulas = 180; // Bastantes para que se llene bien
+    const numParticulas = 500; // Bastantes para que se llene bien
     const emojis = ['❤️', '💖', '💕', '💗'];
 
     for (let i = 0; i < numParticulas; i++) {
@@ -64,8 +64,8 @@ function generarCopaCorazonMatematica() {
         let r = Math.sqrt(Math.random()); // sqrt para rellenar uniformemente
 
         // Fórmula paramétrica del corazón
-        let x = r * 16 * Math.pow(Math.sin(t), 3);
-        let y = -r * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+        let x = r * 18 * Math.pow(Math.sin(t), 3);
+        let y = -r * (15 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
 
         // Escalar y centrar para la caja de 300x250
         let escala = 7; 

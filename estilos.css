@@ -1,455 +1,232 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
+/* =======================================================
+   ESTILOS GENERALES (Soft UI - Estilo Couple Joy)
+   ======================================================= */
 body {
-    font-family: 'Times New Roman', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, hsl(320, 100%, 50%), #000000);
+    font-family: 'Nunito', sans-serif;
+    /* Un gradiente pastel ultra suave */
+    background: linear-gradient(135deg, #fff0f3 0%, #ffe4e8 50%, #fde4e4 100%);
+    margin: 0;
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: flex-start; 
-    padding: 20px;
-    color: #333;
+    align-items: center;
+    color: #4a4a4a;
 }
 
+/* El "Teléfono" o marco principal de la app */
 .app-container {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 30px 25px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    text-align: center;
-    max-width: 500px;
-    width: 100%;
-    position: relative; /* Para poder posicionar el botón flotante */
-    min-height: 500px;
+    background: rgba(255, 255, 255, 0.85); /* Efecto vidrio esmerilado */
+    backdrop-filter: blur(15px);
+    width: 90%;
+    max-width: 450px; /* Tamaño tipo móvil grueso */
+    padding: 30px;
+    border-radius: 35px; /* Bordes súper redondos */
+    box-shadow: 0 25px 50px rgba(255, 182, 193, 0.2), 
+                inset 0 0 0 2px rgba(255,255,255,0.8);
+    box-sizing: border-box;
 }
 
-/* --- CLASES PARA OCULTAR/MOSTRAR --- */
-.vista-oculta { display: none; }
-.vista-activa { display: block; animation: aparecer 0.4s ease-in-out; }
-
-@keyframes aparecer {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+/* =======================================================
+   WIDGET HERO (El mensaje diario)
+   ======================================================= */
+.widget-hero {
+    background: linear-gradient(135deg, #ffffff 0%, #fffafb 100%);
+    border-radius: 25px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 25px rgba(255, 105, 135, 0.08);
+    position: relative;
+    overflow: hidden;
 }
 
-/* --- ESTILOS DEL NUEVO MENÚ DE INICIO --- */
-.mensaje-diario {
-    background: #ffe6ea;
-    border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 30px;
-    border: 2px dashed #ffb3c1;
+.hero-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
-.mensaje-diario h3 {
-    color: #e63946;
-    margin-bottom: 5px;
-    font-size: 20px;
+.hero-icon {
+    font-size: 1.5rem;
+    background: #ffe4e8;
+    width: 40px; height: 40px;
+    display: flex; justify-content: center; align-items: center;
+    border-radius: 12px;
 }
 
-.mensaje-diario p {
-    margin-bottom: 0;
+.hero-header h3 {
+    margin: 0;
+    color: #d6336c;
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.hero-texto {
+    font-size: 1.05rem;
+    color: #666;
+    margin: 0;
     font-style: italic;
+    line-height: 1.5;
 }
 
-.menu-vertical {
+/* =======================================================
+   CUADRÍCULA DE HERRAMIENTAS (Dashboard)
+   ======================================================= */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas exactas */
+    gap: 15px;
+}
+
+/* Las tarjetas de los botones */
+.widget-btn {
+    background: white;
+    text-decoration: none; /* Adiós al subrayado azul */
+    border-radius: 20px;
+    padding: 20px 15px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-bottom: 60px; /* Espacio para el botón flotante */
-}
-
-.btn-bloque {
-    width: 100%;
-    padding: 20px;
-    font-size: 18px;
-    background-color: #ffffff;
-    color: #333;
-    border: 2px solid #e0e0e0;
-    border-radius: 15px;
-    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    gap: 12px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.03);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 1px solid rgba(0,0,0,0.01);
 }
 
-.btn-bloque:hover {
-    border-color: #74ebd5;
-    background-color: #f2fcfb;
-    transform: translateY(-2px);
+.widget-btn:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(255, 105, 135, 0.15);
 }
 
-.icono {
-    font-size: 24px;
-}
-
-.btn-flotante {
-    position: absolute;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: #ff4a6b;
-    color: white;
-    font-size: 30px;
-    line-height: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    box-shadow: 0 5px 15px rgba(255, 74, 107, 0.4);
-}
-
-.btn-flotante:hover {
-    background-color: #e63946;
-    transform: translateX(-50%) scale(1.05);
-}
-
-.btn-volver {
-    background: none;
+/* El texto de los botones */
+.widget-btn span {
     color: #555;
-    box-shadow: none;
-    padding: 5px;
-    margin-bottom: 20px;
-    text-align: left;
-    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: center;
 }
 
-.btn-volver:hover {
-    color: #ff4a6b;
-    transform: translateX(-5px);
+/* Los pequeños íconos de colores para cada app */
+.icon-box {
+    width: 55px; height: 55px;
+    display: flex; justify-content: center; align-items: center;
+    border-radius: 18px; 
+    font-size: 1.8rem;
+    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.05);
 }
 
+/* Colores pasteles únicos para cada herramienta */
+.color-1 { background: #e3f2fd; } 
+.color-2 { background: #ffebee; } 
+.color-3 { background: #fce4ec; } 
+.color-4 { background: #f3e5f5; } 
+.color-5 { background: #e8f5e9; } 
 
-
-
-
-/* --- ESTILOS PARA EL LIBRO 3D DEL RINCÓN --- */
-
-.contenedor-libro {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    perspective: 1500px; /* Esto le da la profundidad 3D */
-    margin-top: 30px;
-    margin-bottom: 30px;
+/* El último botón abarca las dos columnas */
+.widget-full {
+    grid-column: span 2;
+    flex-direction: row; 
+    justify-content: flex-start;
+    padding-left: 25px;
 }
 
-.libro {
-    width: 320px;
-    height: 420px;
-    position: relative;
-    transform-style: preserve-3d;
-    transform: rotateX(20deg); /* Lo inclinamos un poquito hacia adelante */
+.widget-full span {
+    font-size: 1.1rem;
+    margin-left: 10px;
 }
 
-/* Las hojas de papel */
-.papel {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform-origin: left center; /* El lomo del libro está a la izquierda */
-    transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-    transform-style: preserve-3d;
-    cursor: pointer;
-}
-
-/* Orden de las capas (La hoja 1 va arriba del todo) */
-#p1 { z-index: 5; }
-#p2 { z-index: 4; }
-#p3 { z-index: 3; }
-#p4 { z-index: 2; }
-#p5 { z-index: 1; }
-
-/* Caras de la hoja */
-.frente, .dorso {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    backface-visibility: hidden; /* Oculta la cara que no estás mirando */
-    border-radius: 5px 15px 15px 5px;
-    box-shadow: inset 5px 0 15px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.2);
-}
-
-.frente {
-    z-index: 2;
-    transform: rotateY(0deg);
-    background-color: white;
-}
-
-.dorso {
-    z-index: 1;
-    transform: rotateY(180deg);
-    border-radius: 15px 5px 5px 15px;
-    background-color: white;
-}
-
-/* La clase que añade JavaScript cuando haces clic */
-.papel.volteado {
-    transform: rotateY(-180deg);
-}
-
-/* Ajuste de las imágenes para que llenen la hoja */
-.frente img, .dorso img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: inherit;
-}
-
-/* --- ESTILOS PARA LAS TAPAS (PORTADA Y CONTRAPORTADA) --- */
-
-/* Hace que las tapas se vean un poco más rígidas que las hojas */
-.tapa .frente, .tapa .dorso {
-    border: 2px solid #000000; /* Un borde rosado que simula el cartón */
-    background-color: #000000;
-}
-
-/* El interior de las portadas (simulando la cartulina interior) */
-.textura-interior {
-    width: 100%;
-    height: 100%;
-    background-color: #ffe4e8; /* Color rosita muy suave */
-    border: 10px solid #ffc2ce; /* Un marco interior estético */
-    box-sizing: border-box; /* Evita que el borde desborde la hoja */
-    border-radius: inherit;
-    
-    /* Le ponemos un pequeño texto de decoración en el centro (opcional) */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ff8fa3;
-    font-size: 2rem;
-    opacity: 0.3;
-}
-
-/* Agregamos el icono de un corazoncito en el interior de la tapa */
-.textura-interior::after {
-    content: '❤';
-}
-
-
-/* --- CANDADO SECRETO --- */
+/* =======================================================
+   CANDADO Y MODAL DE CONTRASEÑA
+   ======================================================= */
 .contenedor-candado {
     position: fixed;
-    bottom: 30px;
-    left: 30px;
+    bottom: 25px;
+    left: 25px;
     z-index: 50;
 }
 
 #btn-candado {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    font-size: 2rem;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    font-size: 1.8rem;
     border-radius: 50%;
     width: 65px;
     height: 65px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    backdrop-filter: blur(5px);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 10px 25px rgba(214, 51, 108, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #btn-candado:hover {
-    background: rgba(255, 255, 255, 0.4);
     transform: scale(1.1);
+    background: white;
 }
 
-/* --- MODALES (Fondo borroso emergente) --- */
 .modal-oculto {
-    display: none; /* Oculto por defecto */
+    display: none; 
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.7);
+    background: rgba(255, 255, 255, 0.3); 
+    backdrop-filter: blur(12px); 
     z-index: 1000;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(5px);
 }
 
 .modal-contenido {
     background: white;
-    padding: 30px;
-    border-radius: 20px;
+    padding: 35px 30px;
+    border-radius: 30px; 
     text-align: center;
-    max-width: 320px;
+    max-width: 300px;
     width: 90%;
     position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.8);
+    box-sizing: border-box;
 }
 
 .cerrar-modal {
-    position: absolute;
-    top: 15px; right: 20px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #aaa;
-    font-weight: bold;
+    position: absolute; top: 15px; right: 20px;
+    font-size: 1.8rem; cursor: pointer; color: #ccc; 
+    transition: color 0.2s;
 }
-
 .cerrar-modal:hover { color: #d6336c; }
 
-/* Input y Botón de Contraseña */
 #input-clave {
-    width: 80%; padding: 12px; margin: 15px 0;
-    border: 2px solid #ffb3c1; border-radius: 10px;
+    width: 100%; padding: 15px; margin: 15px 0;
+    border: 2px solid #ffe4e8; border-radius: 15px;
     text-align: center; font-size: 1.2rem; outline: none;
+    font-family: 'Nunito', sans-serif;
+    color: #4a4a4a;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
 }
-#input-clave:focus { border-color: #d6336c; }
+#input-clave:focus { border-color: #ff4a6b; }
 
 .btn-verificar {
     background: #ff4a6b; color: white; border: none;
-    padding: 12px 25px; border-radius: 15px; font-weight: bold;
-    cursor: pointer; width: 85%;
+    padding: 15px 25px; border-radius: 18px; font-weight: bold;
+    cursor: pointer; width: 100%; font-family: 'Nunito', sans-serif;
+    font-size: 1.1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-verificar:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 10px 20px rgba(255, 74, 107, 0.3);
 }
 
-/* --- EL LIBRO ABIERTO (ESTÁTICO) --- */
-.libro-abierto {
-    background: #fffdf8; /* Color crema tipo papel */
-    display: flex;
-    max-width: 800px;
-    width: 95%;
-    height: 500px;
-    border-radius: 15px;
-    box-shadow: inset 0 0 40px rgba(0,0,0,0.05), 0 20px 40px rgba(0,0,0,0.4);
-    position: relative;
-    /* Este gradiente en el centro simula el lomo hundido del libro */
-    background-image: linear-gradient(to right, transparent 48%, rgba(0,0,0,0.1) 50%, transparent 52%);
-}
-
-.pagina-izquierda, .pagina-derecha {
-    width: 50%; padding: 40px;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    text-align: center;
-}
-
-.pagina-izquierda img {
-    max-width: 100%; max-height: 100%;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    border: 5px solid white;
-    transform: rotate(-2deg); /* Un toque informal */
-}
-
-.pagina-derecha p { color: #555; font-size: 1.1rem; margin-bottom: 10px; line-height: 1.5; }
-
-/* Botones de la propuesta */
-.botones-propuesta { display: flex; gap: 15px; margin-top: 30px; }
-.botones-propuesta button {
-    padding: 12px 25px; border: none; border-radius: 20px;
-    font-size: 1.1rem; font-weight: bold; cursor: pointer;
-    transition: 0.2s;
-}
-#btn-si { background: #4caf50; color: white; box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3); }
-#btn-si:hover { transform: scale(1.1); }
-#btn-no { background: #f44336; color: white; position: relative; }
-
-/* --- ANIMACIONES CINEMÁTICAS DE DESBLOQUEO --- */
-
-/* 1. El destello y pulso del candado */
 @keyframes pulsoCandadoAbierto {
     0% { transform: scale(1); }
-    50% { transform: scale(1.4); background-color: #fff0f3; box-shadow: 0 0 35px #ff4a6b; }
+    50% { transform: scale(1.3); background-color: white; box-shadow: 0 0 30px #ff4a6b; }
     100% { transform: scale(1); }
 }
-
 .candado-abierto-anim {
     animation: pulsoCandadoAbierto 0.6s ease-in-out forwards;
     border-color: #ff4a6b !important;
-}
-
-/* 2. El efecto "Pop" con rebote suave para la aparición del libro */
-@keyframes entradaLibroPropuesta {
-    0% { 
-        opacity: 0; 
-        transform: scale(0.7) translateY(40px); 
-    }
-    70% { 
-        transform: scale(1.03) translateY(-5px); /* Pequeño estiramiento de rebote */
-    }
-    100% { 
-        opacity: 1; 
-        transform: scale(1) translateY(0); 
-    }
-}
-
-/* Aplicamos la animación directamente al contenedor del libro abierto */
-.libro-abierto {
-    /* ... mantén tus estilos anteriores aquí y agrega esta línea: ... */
-    animation: entradaLibroPropuesta 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
-}
-
-
-/* ==========================================================================
-   MUNDO MÓVIL: Estas reglas SOLO se aplican en celulares y tablets
-   ========================================================================== */
-@media (max-width: 768px) {
-    
-    /* 1. Ajustamos el contenedor principal del menú para que no use márgenes gigantes */
-    .app-container {
-        width: 95%;
-        padding: 15px;
-    }
-
-    /* 2. Achicamos los textos generales para que no se desborden */
-    h1 { font-size: 20px; }
-    h2 { font-size: 18px !important; }
-    p { font-size: 13px !important; }
-
-    /* 3. REESTRUCTURACIÓN DEL LIBRO ABIERTO (LA PROPUESTA) 
-       En PC se ve hermoso de lado a lado (horizontal), pero en celular 
-       es mejor que se vea vertical (la foto arriba y la carta abajo). */
-    .libro-abierto {
-        flex-direction: column; /* Cambia de horizontal a vertical */
-        height: auto; /* Permite que el alto crezca según el texto */
-        max-height: 85vh; /* Evita que tape toda la pantalla del teléfono */
-        overflow-y: auto; /* Si el texto es largo, añade un scroll interno suave */
-        background-image: none; /* Quitamos la línea del lomo central porque ya no dobla ahí */
-        padding: 10px 0;
-    }
-
-    /* Las páginas internas ahora ocupan el 100% del ancho del celular */
-    .pagina-izquierda, .pagina-derecha {
-        width: 100%;
-        padding: 20px;
-        box-sizing: border-box;
-    }
-
-    .pagina-izquierda img {
-        max-height: 200px; /* Controlamos que la foto no sea gigante en el celular */
-        margin-bottom: 0;
-    }
-
-    /* 4. Ajustamos los botones de la propuesta para que quepan cómodos */
-    .botones-propuesta {
-        width: 100%;
-        justify-content: center;
-        gap: 10px;
-    }
-
-    .botones-propuesta button {
-        padding: 10px 15px;
-        font-size: 0.95rem;
-    }
-
-    /* 5. El candado secreto lo hacemos un poquito más discreto en celular */
-    #btn-candado {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
-        bottom: 20px;
-        left: 20px;
-    }
 }
