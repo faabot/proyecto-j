@@ -2,8 +2,14 @@
    EL FONDO DE LA PÁGINA DE PROPUESTA
    ======================================================= */
 body {
-    /* Un fondo romántico oscuro para que el libro sea el centro de atención */
-    background: linear-gradient(135deg, #ffe4e8 0%, #ffb3c1 100%);
+    /* Llamamos a tu GIF y lo configuramos para que sea un fondo perfecto */
+    background-image: url('img/fondo_minecraft.gif');
+    background-size: cover; /* Hace que el GIF cubra toda la pantalla sin deformarse */
+    background-position: center; /* Lo centra perfectamente */
+    background-repeat: no-repeat; /* Evita que se multiplique como un mosaico */
+    background-attachment: fixed; /* Hace que el fondo se quede quieto si haces scroll */
+
+    /* Lo demás que ya tenías se mantiene igual */
     margin: 0;
     font-family: 'Nunito', sans-serif;
     display: flex;
@@ -94,4 +100,26 @@ body {
         max-height: 250px; 
         margin-bottom: 10px; 
     }
+}
+/* =======================================================
+   BOTÓN VOLVER AL MENÚ
+   ======================================================= */
+#btn-volver-menu {
+    position: absolute; /* Para que se quede pegado a la esquina */
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.5); /* Fondo negro semitransparente */
+    color: white;
+    text-decoration: none; /* Quitamos el subrayado feo */
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    z-index: 100; /* Asegura que siempre esté por encima del fondo */
+    transition: all 0.2s ease;
+}
+#btn-volver-menu:hover {
+    background: rgba(0, 0, 0, 0.8); /* Se oscurece al pasar el mouse */
+    transform: translateX(-3px); /* Se mueve un poquito hacia la izquierda */
 }
