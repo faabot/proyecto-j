@@ -1,113 +1,103 @@
-// =========================================================
-// 1. CONFIGURACIÓN: ¡Cambia estos datos por los tuyos!
-// =========================================================
+// --- CONFIGURACIÓN ---
+const FECHA_INICIO = new Date("2025-08-26T19:18:00"); 
+const CARTA = `Mi querida Julietita...\nSi pudiera elegir un lugar seguro en este inmenso universo, sin duda sería a tu lado.\nCada día que pasa me doy cuenta de lo afortunado que soy.\nNo importa cuántas herramientas programe, mi mejor proyecto siempre será nuestro futuro juntos.`;
 
-// Formato de fecha: "Año-Mes-DiaTHora:Minuto:Segundo"
-// Ejemplo: Si empezaron a salir el 14 de Febrero de 2023 a las 15:30.
-const FECHA_INICIO = new Date("2025-08-26T19:15:00"); 
+// --- 1. COREOGRAFÍA Y ANIMACIONES ---
+window.onload = () => {
+    const semilla = document.getElementById('semilla');
+    const trazosSVG = document.querySelectorAll('.trazo-verde');
+    const tarjeta = document.getElementById('tarjeta-principal');
 
-// La carta que se escribirá sola (puedes hacerla tan larga como quieras)
-const CARTA = `Mi querida Julietita... 
-Si pudiera elegir un lugar seguro en este inmenso universo, sin duda sería a tu lado.
-Cada día que pasa me doy cuenta de lo afortunado que soy. 
-No importa cuántas herramientas programe, mi mejor proyecto siempre será nuestro futuro juntos.
-Te amo muchísimo. ❤️`;
+    // ACTO 1: Cae el punto rojo (segundo 0 al 1)
+    semilla.style.animation = "caerPunto 1.2s ease-in forwards";
 
-// =========================================================
-// 2. EL CONTADOR DE TIEMPO
-// =========================================================
-function actualizarContador() {
-    const ahora = new Date();
-    const diferencia = ahora - FECHA_INICIO;
+    // ACTO 2: Crece el árbol verde (segundo 1 al 2.5)
+    setTimeout(() => {
+        trazosSVG.forEach((trazo, index) => {
+            // El tronco crece primero, las ramas un poquito después
+            let retraso = index === 0 ? 0 : 0.5 + (Math.random() * 0.5);
+            trazo.style.animation = `dibujarArbol 1s ease-out forwards ${retraso}s`;
+        });
+    }, 1000);
 
-    // Matemáticas para calcular días, horas, minutos y segundos
-    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
-    const minutos = Math.floor((diferencia / 1000 / 60) % 60);
-    const segundos = Math.floor((diferencia / 1000) % 60);
+    // ACTO 3: Florece el corazón gigante (segundo 2.5 al 4.5)
+    setTimeout(() => {
+        generarCopaCorazonMatematica();
+    }, 2500);
 
-    // Actualizar el HTML
-    document.getElementById("dias").innerText = dias;
-    document.getElementById("horas").innerText = horas;
-    document.getElementById("minutos").innerText = minutos;
-    document.getElementById("segundos").innerText = segundos;
+    // ACTO 4: El telón se abre, el árbol va a la derecha (segundo 5)
+    setTimeout(() => {
+        tarjeta.classList.remove('arbol-centrado');
+    }, 5000);
+
+    // ACTO 5: Aparece el texto y el reloj (segundo 6.5)
+    setTimeout(() => {
+        setInterval(actualizarContador, 1000);
+        actualizarContador();
+        escribirCarta();
+    }, 6500);
+};
+
+// --- 2. GENERADOR DEL CORAZÓN (Ecuación Paramétrica) ---
+function generarCopaCorazonMatematica() {
+    const copa = document.getElementById("copa-corazon");
+    const numParticulas = 180; // Bastantes para que se llene bien
+    const emojis = ['❤️', '💖', '💕', '💗'];
+
+    for (let i = 0; i < numParticulas; i++) {
+        let particula = document.createElement("div");
+        particula.className = "particula-corazon";
+        
+        // Elige si es un punto de color o un emoji
+        if(Math.random() > 0.4) {
+            particula.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            particula.style.fontSize = `${Math.random() * 10 + 8}px`;
+        } else {
+            particula.innerText = "❤";
+            particula.style.color = ['#ff4a6b', '#ffb3c6', '#d6336c'][Math.floor(Math.random() * 3)];
+            particula.style.fontSize = `${Math.random() * 14 + 10}px`;
+        }
+
+        // MATEMÁTICA DEL CORAZÓN
+        // Genera un ángulo aleatorio y una distancia desde el centro
+        let t = Math.random() * Math.PI * 2;
+        let r = Math.sqrt(Math.random()); // sqrt para rellenar uniformemente
+
+        // Fórmula paramétrica del corazón
+        let x = r * 16 * Math.pow(Math.sin(t), 3);
+        let y = -r * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+
+        // Escalar y centrar para la caja de 300x250
+        let escala = 7; 
+        particula.style.left = `${(x * escala) + 145}px`; 
+        particula.style.top = `${(y * escala) + 110}px`; 
+
+        // Animación individual con retraso aleatorio
+        let retraso = Math.random() * 2;
+        particula.style.animation = `florecer 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards ${retraso}s`;
+
+        copa.appendChild(particula);
+    }
 }
 
-// =========================================================
-// 3. EFECTO DE MÁQUINA DE ESCRIBIR
-// =========================================================
-let indiceLetra = 0;
-const velocidadEscritura = 50; // Milisegundos entre cada letra (menor = más rápido)
+// --- 3. FUNCIONES DE TEXTO Y RELOJ ---
+function actualizarContador() {
+    const diferencia = new Date() - FECHA_INICIO;
+    document.getElementById("d").innerText = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    document.getElementById("h").innerText = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+    document.getElementById("m").innerText = Math.floor((diferencia / 1000 / 60) % 60);
+    document.getElementById("s").innerText = Math.floor((diferencia / 1000) % 60);
+}
 
+let indiceLetra = 0;
 function escribirCarta() {
     const contenedor = document.getElementById("carta-maquina");
-    
     if (indiceLetra < CARTA.length) {
-        // Mantiene los saltos de línea reemplazando el "Enter" por <br>
-        let caracter = CARTA.charAt(indiceLetra);
-        if (caracter === '\n') caracter = '<br>';
-        
-        contenedor.innerHTML = CARTA.substring(0, indiceLetra) + caracter + '<span class="cursor"></span>';
+        let caracter = CARTA.charAt(indiceLetra) === '\n' ? '<br>' : CARTA.charAt(indiceLetra);
+        contenedor.innerHTML = CARTA.substring(0, indiceLetra).replace(/\n/g, '<br>') + caracter + '<span class="cursor"></span>';
         indiceLetra++;
-        setTimeout(escribirCarta, velocidadEscritura);
+        setTimeout(escribirCarta, 40); // Velocidad de escritura
     } else {
-        // Al terminar, dejamos el texto limpio con el cursor al final
         contenedor.innerHTML = CARTA.replace(/\n/g, '<br>') + '<span class="cursor"></span>';
     }
 }
-
-// =========================================================
-// 4. GENERADOR DEL ÁRBOL DE CORAZONES (VERSIÓN CRECIMIENTO)
-// =========================================================
-function crearArbol() {
-    const copa = document.getElementById("copa-arbol");
-    const tiposCorazones = ['❤️', '💖', '💕', '💗', '💓', '🌸'];
-    const cantidadHojas = 120; 
-
-    for (let i = 0; i < cantidadHojas; i++) {
-        let corazon = document.createElement("span");
-        corazon.className = "corazon-hoja";
-        corazon.innerText = tiposCorazones[Math.floor(Math.random() * tiposCorazones.length)];
-        
-        // Posición aleatoria
-        let posX = Math.random() * 100;
-        let posY = Math.random() * 100;
-        corazon.style.left = `${posX}%`;
-        corazon.style.top = `${posY}%`;
-        corazon.style.fontSize = `${Math.random() * 15 + 10}px`;
-        
-        // LA MAGIA DE LOS TIEMPOS: 
-        // El tronco y ramas tardan 2 segundos.
-        // Hacemos que los corazones nazcan entre el segundo 1.8 y el 4.5 de forma aleatoria.
-        let tiempoDeEspera = 2.8 + (Math.random() * 3.2);
-        
-        // Le aplicamos la animación CSS con ese retraso exacto
-        corazon.style.animation = `floracion 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards ${tiempoDeEspera}s`;
-        
-        copa.appendChild(corazon);
-    }
-}
-
-// =========================================================
-// INICIALIZACIÓN: El Guion de la Película
-// =========================================================
-window.onload = () => {
-    // ACTO 1: Arranca de inmediato (Cae la semilla y crece el árbol en el centro)
-    crearArbol(); 
-
-    // ACTO 2: A los 6.5 segundos (cuando las hojas ya florecieron)
-    setTimeout(() => {
-        // Le quitamos la clase, haciendo que el árbol se deslice a la derecha
-        document.querySelector('.contenedor-principal').classList.remove('arbol-centrado');
-    }, 6500);
-
-    // ACTO 3: A los 8 segundos (cuando el árbol ya terminó de deslizarse)
-    setTimeout(() => {
-        // Aparece la carta de golpe y empieza a escribirse
-        escribirCarta();
-        
-        // Arranca el reloj de amor en tiempo real
-        actualizarContador(); 
-        setInterval(actualizarContador, 1000); 
-    }, 8000);
-};

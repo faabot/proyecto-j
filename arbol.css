@@ -1,290 +1,164 @@
-/* --- ESTILOS DEL ÁRBOL (VERSIÓN CRECIMIENTO TIKTOK) --- */
-
 body {
-    /* Los colores EXACTOS del video que viste */
-    background-color: #F5E8DC; 
-    color: #5C4033; 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #222; /* Fondo oscuro para que resalte la tarjeta */
     margin: 0;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .btn-volver {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    text-decoration: none;
-    background-color: white;
-    color: #5C4033;
-    padding: 10px 15px;
-    border-radius: 15px;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    z-index: 100;
+    position: absolute; top: 20px; left: 20px; text-decoration: none;
+    background-color: #F5E8DC; color: #5C4033; padding: 10px 15px;
+    border-radius: 15px; font-weight: bold; z-index: 100;
 }
 
-.contenedor-principal {
+/* --- LA TARJETA EXACTA DEL VIDEO --- */
+.tarjeta-amor {
+    background: #F5E8DC;
+    color: #5C4033;
+    width: 900px;
+    max-width: 95vw;
+    height: 550px;
+    border-radius: 15px;
+    position: relative;
     display: flex;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+}
+
+/* La línea del suelo */
+.linea-suelo {
+    position: absolute;
+    bottom: 50px;
+    left: 5%;
     width: 90%;
-    max-width: 1000px;
-    height: 80vh;
-    background: rgba(255, 255, 255, 0.4); /* Fondo semi transparente para que luzca el #F5E8DC */
-    border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(92, 64, 51, 0.1);
+    height: 2px;
+    background-color: #5C4033;
+    opacity: 0;
+    transition: opacity 1s ease 1s; /* Aparece después de que el árbol se mueve */
+}
+
+/* --- LÓGICA DEL TELÓN DESLIZANTE --- */
+.panel-izquierdo {
+    width: 50%;
+    opacity: 1;
+    transition: width 1.5s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 1s ease 0.5s;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 60px;
     overflow: hidden;
 }
 
-/* --- LADO IZQUIERDO: TEXTO Y RELOJ --- */
-.panel-texto {
+.panel-derecho {
     width: 50%;
-    padding: 50px;
+    position: relative;
+    transition: width 1.5s cubic-bezier(0.25, 0.8, 0.25, 1);
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-sizing: border-box;
+    justify-content: center;
+}
+
+/* ESTADO INICIAL (El árbol centrado ocupando el 100%) */
+.arbol-centrado .panel-derecho { width: 100%; }
+.arbol-centrado .panel-izquierdo { width: 0%; opacity: 0; }
+.arbol-centrado .linea-suelo { opacity: 0; }
+
+/* ESTADO FINAL (Remover la clase 'arbol-centrado' revela todo) */
+.tarjeta-amor:not(.arbol-centrado) .linea-suelo { opacity: 1; }
+
+/* --- CONTENIDO IZQUIERDO --- */
+.contenido-texto {
+    width: 450px; /* Ancho fijo para que no se deforme al abrirse */
+    padding: 0 40px;
 }
 
 #carta-maquina {
     font-size: 1.1rem;
     line-height: 1.8;
-    min-height: 200px; 
-    border-left: 4px solid #5C4033;
-    padding-left: 15px;
+    margin-bottom: 30px;
+    min-height: 250px;
 }
+.cursor { border-right: 2px solid #5C4033; animation: parpadeo 0.8s infinite; }
+@keyframes parpadeo { 50% { border-color: transparent; } }
 
-.cursor {
-    display: inline-block;
-    width: 3px;
-    background-color: #5C4033;
-    animation: parpadeo 0.8s infinite;
-}
+.contenedor-reloj { margin-top: 20px; }
+.titulo-reloj { font-size: 0.95rem; margin-bottom: 5px; }
+.reloj-numeros { font-size: 1.1rem; margin: 0; }
+.reloj-numeros span { font-size: 1.4rem; font-weight: bold; }
 
-@keyframes parpadeo { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-.contenedor-contador {
-    background: rgba(255, 255, 255, 0.6);
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-}
-
-.titulo-contador { margin: 0 0 10px 0; font-weight: bold; font-size: 1.1rem; }
-#reloj-amor { font-size: 1.2rem; font-weight: bold; }
-#reloj-amor span { font-size: 1.5rem; }
-
-/* --- LADO DERECHO: EL ÁRBOL ANIMADO --- */
-.panel-arbol {
-    width: 50%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-#arbol {
-    position: relative;
+/* --- CONTENIDO DERECHO (EL ÁRBOL) --- */
+.escenario-arbol {
     width: 300px;
-    height: 400px;
+    height: 100%;
+    position: relative;
 }
 
-/* =========================================
-   1. LA SEMILLA QUE CAE
-   ========================================= */
-.semilla {
+/* El punto rojo que cae */
+.semilla-roja {
     position: absolute;
-    top: -50px; /* Empieza fuera de la pantalla arriba */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 24px;
-    z-index: 10;
-    /* Cae en 1s, espera 0.2s y luego desaparece encogiéndose */
-    animation: 
-        caerSemilla 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards,
-        desaparecerSemilla 0.5s ease-in forwards 1.2s;
+    width: 8px; height: 8px;
+    background-color: #d6336c; /* Rojo cereza */
+    border-radius: 50%;
+    left: 146px; /* Centrado en el SVG de 300px */
+    top: -20px;
+    opacity: 0;
 }
 
-@keyframes caerSemilla {
-    to { top: 370px; } /* Toca el "suelo" */
+@keyframes caerPunto {
+    0% { top: -20px; opacity: 1; transform: scale(1); }
+    80% { top: 276px; opacity: 1; transform: scale(1); } /* Cae hasta la línea del suelo */
+    100% { top: 276px; opacity: 0; transform: scale(0); } /* Desaparece */
 }
 
-@keyframes desaparecerSemilla {
-    to { opacity: 0; transform: translateX(-50%) scale(0); }
-}
-
-/* =========================================
-   2. EL ÁRBOL ORGÁNICO (SVG)
-   ========================================= */
-.arbol-svg {
+/* El Árbol Verde */
+.arbol-verde {
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
+    bottom: 50px; /* Apoyado en la línea del suelo */
+    left: 0;
+    width: 300px;
     height: 300px;
     z-index: 2;
 }
 
-/* Estilo general para todas las líneas del árbol */
-.trazo-arbol {
+.trazo-verde {
     fill: none;
-    stroke: #8b5a2b; /* Color madera */
-    stroke-linecap: round; /* Puntas redondeadas y suaves */
-    stroke-linejoin: round;
-    /* EL TRUCO MÁGICO: Crea una línea punteada gigante y la oculta */
+    stroke: #4ca173; /* El color verde del video */
+    stroke-linecap: round;
     stroke-dasharray: 400;
     stroke-dashoffset: 400;
 }
+.tronco { stroke-width: 12; }
+.rama { stroke-width: 6; }
 
-/* El tronco es más grueso y nace después de la semilla */
-.tronco-svg {
-    stroke-width: 14;
-    /* Empieza a crecer justo cuando la semilla desaparece (1.2s) */
-    animation: dibujar 1.5s ease-out forwards 1.2s;
-}
+@keyframes dibujarArbol { to { stroke-dashoffset: 0; } }
 
-/* Las ramas son más delgadas y nacen del tronco */
-.rama-izq-svg, .rama-der-svg {
-    stroke-width: 10;
-}
-
-.rama-izq-svg {
-    animation: dibujar 1s ease-out forwards 2s; /* Nace cuando el tronco va por la mitad */
-}
-
-.rama-der-svg {
-    animation: dibujar 1s ease-out forwards 2.3s;
-}
-
-/* La animación que "dibuja" la línea reduciendo el offset a cero */
-@keyframes dibujar {
-    to { stroke-dashoffset: 0; }
-}
-
-/* =========================================
-   3. LA COPA (Reajuste de posición)
-   ========================================= */
-#copa-arbol {
+/* La copa (Corazones) */
+#copa-corazon {
     position: absolute;
-    top: -20px; /* Un poco más arriba para encajar con el nuevo árbol */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 320px;
-    height: 320px;
-    border-radius: 50%;
+    bottom: 120px;
+    left: 0;
+    width: 300px;
+    height: 250px;
     z-index: 3;
-    animation: respirar 4s ease-in-out infinite;
-    animation-delay: 6s; /* Empieza a respirar cuando todo terminó de crecer */
 }
 
-
-/* 4. EL FLORECIMIENTO DE LOS CORAZONES */
-.corazon-hoja {
+.particula-corazon {
     position: absolute;
-    user-select: none;
-    transform: scale(0); /* Invisibles al principio */
-    /* La animación se asigna en el JS para darles un retraso distinto a cada uno */
+    transform: scale(0);
 }
 
-@keyframes floracion {
+@keyframes florecer {
     0% { transform: scale(0); }
-    80% { transform: scale(1.4); } /* El "Pop" de rebote */
+    70% { transform: scale(1.3); }
     100% { transform: scale(1); }
 }
 
-/* --- RESPONSIVE PARA CELULARES --- */
+/* Responsive */
 @media (max-width: 768px) {
-    .contenedor-principal { flex-direction: column; height: auto; margin-top: 60px; }
-    .panel-texto, .panel-arbol { width: 100%; }
-    .panel-texto { padding: 30px 20px; }
-    .panel-arbol { height: 350px; }
-}
-
-/* =========================================
-   LA COREOGRAFÍA PERFECTA (Ventana Deslizante)
-   ========================================= */
-
-/* 1. La Ventana Mágica */
-.contenedor-principal {
-    position: relative;
-    width: 1000px;
-    max-width: 95vw;
-    height: 80vh;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(92, 64, 51, 0.1);
-    overflow: hidden;
-    display: block; /* Quitamos el flexbox aquí en PC */
-    margin: 0 auto;
-    
-    /* LA MAGIA: Animamos el tamaño de la ventana entera, no lo de adentro */
-    transition: max-width 1.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-/* ACTO 1: La ventana arranca pequeña (solo cabe el árbol) */
-.contenedor-principal.arbol-centrado {
-    max-width: 500px; 
-}
-
-/* 2. El Panel del Árbol (Se ancla firmemente a la derecha) */
-.panel-arbol {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 500px; /* Tamaño rígido para que la física del árbol no se rompa */
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-/* 3. El Panel del Texto (Se ancla firmemente a la izquierda) */
-.panel-texto {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 500px; /* Tamaño rígido para que la letra no se aplaste */
-    height: 100%;
-    padding: 50px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    opacity: 1;
-    
-    /* El texto aparece suavemente 1 segundo después de que la ventana crece */
-    transition: opacity 0.8s ease 1s; 
-}
-
-/* En el Acto 1, el texto es invisible */
-.arbol-centrado .panel-texto {
-    opacity: 0;
-    pointer-events: none;
-}
-
-
-/* =========================================
-   RESPONSIVE PARA CELULARES
-   ========================================= */
-@media (max-width: 768px) {
-    .contenedor-principal {
-        max-width: 95vw !important;
-        height: auto;
-        display: flex; /* En celular sí usamos flex para apilarlos de arriba a abajo */
-        flex-direction: column;
-        margin-top: 60px;
-    }
-    
-    .panel-texto, .panel-arbol {
-        position: relative; /* Quitamos lo absoluto para que no choquen */
-        width: 100%;
-    }
-    
-    .panel-texto { padding: 30px 20px; transition: opacity 1s ease 0.5s; }
-    .panel-arbol { height: 350px; }
-    
-    /* En celular, ocultamos el texto al principio y luego aparece abajo */
-    .arbol-centrado .panel-texto { display: none; }
+    .tarjeta-amor { flex-direction: column; height: auto; padding-bottom: 20px; }
+    .panel-izquierdo, .panel-derecho { width: 100% !important; }
+    .panel-derecho { height: 400px; }
+    .arbol-centrado .panel-izquierdo { display: none; }
+    .contenido-texto { width: 100%; padding: 20px; }
 }

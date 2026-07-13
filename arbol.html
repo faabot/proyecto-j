@@ -8,49 +8,43 @@
 </head>
 <body>
 
-    <a href="index.html" class="btn-volver">⬅ Volver al Menú</a>
+    <a href="index.html" class="btn-volver">⬅ Volver</a>
 
-    <div class="contenedor-principal">
+    <div class="tarjeta-amor arbol-centrado" id="tarjeta-principal">
         
-        <div class="contenedor-principal arbol-centrado">
-
-        </div>
-
-        <div class="panel-texto">
+        <div class="panel-izquierdo">
             <div class="contenido-texto">
-                <div id="carta-maquina">
-                    </div>
+                <div id="carta-maquina"></div>
                 
-                <div class="contenedor-contador">
-                    <p class="titulo-contador">Mi amor por ti comenzó hace...</p>
-                    <div id="reloj-amor">
-                        <span id="dias">00</span> días 
-                        <span id="horas">00</span> horas 
-                        <span id="minutos">00</span> minutos 
-                        <span id="segundos">00</span> segundos
-                    </div>
+                <div class="contenedor-reloj">
+                    <p class="titulo-reloj">Mi amor por ti comenzó hace...</p>
+                    <p class="reloj-numeros">
+                        <span id="d">00</span> días 
+                        <span id="h">00</span> horas 
+                        <span id="m">00</span> minutos 
+                        <span id="s">00</span> segundos
+                    </p>
                 </div>
             </div>
         </div>
 
-        <div class="panel-arbol">
-            <div id="arbol">
+        <div class="panel-derecho">
+            <div class="escenario-arbol">
+                <div class="semilla-roja" id="semilla"></div>
                 
-                <div class="semilla">🌱</div>
-
-                <div id="copa-arbol"></div>
-
-                <svg class="arbol-svg" viewBox="0 0 200 300">
-                    <path class="trazo-arbol tronco-svg" d="M100,300 C85,200 115,120 100,60" />
-                    
-                    <path class="trazo-arbol rama-izq-svg" d="M103,160 C70,140 40,130 30,90" />
-                    
-                    <path class="trazo-arbol rama-der-svg" d="M98,120 C130,100 160,110 170,70" />
+                <svg class="arbol-verde" viewBox="0 0 300 300" id="svg-arbol">
+                    <path class="trazo-verde tronco" d="M150,280 Q150,200 150,100" />
+                    <path class="trazo-verde rama" d="M150,220 Q110,180 80,140" />
+                    <path class="trazo-verde rama" d="M150,180 Q190,140 220,100" />
+                    <path class="trazo-verde rama" d="M150,140 Q120,100 100,60" />
+                    <path class="trazo-verde rama" d="M150,120 Q180,80 200,40" />
                 </svg>
-
+                
+                <div id="copa-corazon"></div>
             </div>
         </div>
 
+        <div class="linea-suelo"></div>
     </div>
 
     <script src="arbol.js"></script>
