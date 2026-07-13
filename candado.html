@@ -11,23 +11,14 @@
 
     <div class="contenedor-candado">
         
-        <div class="libro-abierto">
-            
-            <div class="pagina-izquierda">
-                <img src="https://picsum.photos/id/1062/300/400" alt="Nuestra foto especial">
-            </div>
+        <div class="contenedor-diario-pixel">
+    
+            <img id="hoja-actual" src="img/hoja1.png" alt="Carta página 1" class="pixel-art">
 
-            <div class="pagina-derecha">
-                <h2>Mi querida Julietita... ❤️</h2>
-                <p>Has llegado al final de este pequeño mundo virtual que programé especialmente para ti.</p>
-                <p>Eres lo más lindo que me ha pasado y quiero hacerte una pregunta muy importante:</p>
-                <h3 class="pregunta-final">¿Quieres pololear conmigo?</h3>
-                
-                <div class="botones-candado">
-                    <button id="btn-si" onclick="alert('¡Dijo que SÍ! 🎉❤️ Te amo.')">Sí, obvio 🥰</button>
-                    <button id="btn-no" onmouseover="escaparBoton()">No 😢</button>
-                </div>
-            </div>
+            <img id="btn-atras" src="img/atras.png" alt="Atrás" class="btn-flecha pixel-art" onclick="cambiarPagina(-1)">
+            <img id="btn-siguiente" src="img/siguiente.png" alt="Siguiente" class="btn-flecha pixel-art" onclick="cambiarPagina(1)">
+
+            <img id="btn-aceptar" src="img/aceptar.png" alt="Aceptar" class="pixel-art" onclick="alert('¡DIJO QUE SÍ! 🎉❤️')">
 
         </div>
 

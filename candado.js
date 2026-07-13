@@ -66,3 +66,40 @@ function escaparBoton() {
     btnSi.style.transform = `scale(${escalaSi})`;
     btnSi.style.transition = "transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)";
 }
+
+let paginaActual = 1;
+let temporizadorSorpresa = null; // Guardamos el temporizador aquí
+
+function cambiarPagina(direccion) {
+    paginaActual += direccion;
+
+    // Límites de seguridad (no bajar de 1 ni pasar de 3)
+    if (paginaActual < 1) paginaActual = 1;
+    if (paginaActual > 3) paginaActual = 3;
+
+    // 1. Cambiamos la imagen de la hoja actual
+    document.getElementById('hoja-actual').src = `img/hoja${paginaActual}.png`;
+
+    // 2. Mostramos u ocultamos las flechas según corresponda
+    document.getElementById('btn-atras').style.display = (paginaActual === 1) ? 'none' : 'block';
+    document.getElementById('btn-siguiente').style.display = (paginaActual === 3) ? 'none' : 'block';
+
+    // 3. Lógica de la página 3 (El suspenso de 10 segundos)
+    const btnAceptar = document.getElementById('btn-aceptar');
+
+    // Siempre limpiamos el temporizador si cambia de página, para evitar errores
+    if (temporizadorSorpresa) {
+        clearTimeout(temporizadorSorpresa);
+        temporizadorSorpresa = null;
+    }
+
+    if (paginaActual === 3) {
+        // Empieza a contar 10 segundos (10000 milisegundos)
+        temporizadorSorpresa = setTimeout(() => {
+            btnAceptar.style.display = 'block'; // ¡Aparece el botón de Minecraft!
+        }, 10000); 
+    } else {
+        // Si retrocede a la página 1 o 2, escondemos el botón de aceptar
+        btnAceptar.style.display = 'none';
+    }
+}
