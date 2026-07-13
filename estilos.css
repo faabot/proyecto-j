@@ -292,3 +292,20 @@ body {
         left: 20px;
     }
 }
+
+/* =======================================================
+   INDICADOR DE VERSIÓN (Centrado y profesional)
+   ======================================================= */
+.version-app {
+    position: fixed;
+    bottom: 15px; /* Un poquito más despegado del borde inferior */
+    left: 50%;
+    transform: translateX(-50%); /* El truco mágico para centrar perfecto */
+    font-size: 11px;
+    color: rgba(0, 0, 0, 0.25); /* Muy sutil para no robar atención */
+    font-family: 'Nunito', sans-serif; /* Hace juego con la app */
+    font-weight: 600;
+    letter-spacing: 1px; /* Le da un toque estilizado de "número de serie" */
+    z-index: 9999;
+    pointer-events: none;
+}
