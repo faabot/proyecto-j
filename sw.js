@@ -1,4 +1,4 @@
-const CACHE_NAME = 'amor-app-v5.00'; // Puedes dejar esta versión y casi no tendrás que cambiarla más
+const CACHE_NAME = 'amor-app-v3.1'; // Puedes dejar esta versión y casi no tendrás que cambiarla más
 
 // Aquí ponemos todos los archivos clave para que funcionen sin internet
 const urlsToCache = [
