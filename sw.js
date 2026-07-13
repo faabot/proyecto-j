@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pomodoro-amor-v4.2'; // cambiar -"vn" por cada actualización que haga
+const CACHE_NAME = 'pomodoro-amor-v4.2.1'; // cambiar -"vn" por cada actualización que haga
 const urlsToCache = [
   './',
   './index.html',

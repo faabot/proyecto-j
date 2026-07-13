@@ -130,3 +130,25 @@ body {
     /* Un pequeño brillo interior a las fotos */
     box-shadow: inset 0 0 10px rgba(255,255,255,0.5);
 }
+
+/* =======================================================
+   MUNDO MÓVIL (Ajuste del libro para celulares)
+   ======================================================= */
+@media (max-width: 768px) {
+    .libro {
+        width: 280px;  /* Achicamos el ancho */
+        height: 350px; /* Achicamos el alto manteniendo la proporción */
+    }
+
+    /* Aseguramos que las imágenes se adapten al nuevo tamaño sin deformarse */
+    .frente img, .dorso img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Evita que el celular cree un scroll horizontal accidental con el efecto 3D */
+    html, body {
+        overflow-x: hidden;
+    }
+}

@@ -33,14 +33,14 @@ function centrarLibro() {
     const hojasVolteadas = document.querySelectorAll('.papel.volteado').length;
     
     if (hojasVolteadas === 0) {
-        // Libro cerrado (Portada principal) - Pegado a la izquierda
-        libro.style.setProperty('--desplazamiento', '0px');
+        // Inicio: 0% de desplazamiento
+        libro.style.setProperty('--desplazamiento', '0%');
     } else if (hojasVolteadas === totalHojas) {
-        // Libro cerrado (Tapa final) - Se desliza hacia la derecha
-        libro.style.setProperty('--desplazamiento', '300px');
+        // Final: 100% de desplazamiento (se mueve exactamente el ancho del libro)
+        libro.style.setProperty('--desplazamiento', '100%');
     } else {
-        // Libro abierto (Páginas internas) - Se centra en la pantalla
-        libro.style.setProperty('--desplazamiento', '150px');
+        // Abierto: 50% de desplazamiento (se centra perfecto)
+        libro.style.setProperty('--desplazamiento', '50%');
     }
 }
 
