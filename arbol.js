@@ -1,6 +1,6 @@
 // --- CONFIGURACIÓN ---
 const FECHA_INICIO = new Date("2025-08-26T19:18:00"); 
-const CARTA = `Mi querida Julietita...\nSi pudiera elegir un lugar seguro en este inmenso universo, sin duda sería a tu lado.\nCada día que pasa me doy cuenta de lo afortunado que soy.\nNo importa cuántas herramientas programe, mi mejor proyecto siempre será nuestro futuro juntos.`;
+const CARTA = `Mi querida Julietita...\nSiempre me has dicho que eres alguien que cree profundamente en el destino. \nAquel día quizás fué una de esos momentos, y aunque nos seguiamos conociendo, existe un día que lo cambió todo, es el día que supe que eras la persona que quería a mi lado. <br> \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 — Te amo!!!`;
 
 // --- 1. COREOGRAFÍA Y ANIMACIONES ---
 window.onload = () => {

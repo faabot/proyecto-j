@@ -43,23 +43,20 @@ body {
 }
 
 .libro {
-    width: 300px;
-    height: 400px;
     position: relative;
+    width: 400px; /* Asumo que es 400px por las fotos que usamos */
+    height: 500px;
     transform-style: preserve-3d;
     
-    /* Creamos una variable para mover el libro de lado a lado */
-    --desplazamiento: 0px;
-    
-    /* Aplicamos el desplazamiento junto con la inclinación kawaii que ya teníamos */
-    transform: translateX(var(--desplazamiento)) rotateX(15deg) rotateY(-5deg); 
-    
-    box-shadow: 15px 25px 40px rgba(255, 105, 135, 0.15);
-    border-radius: 10px 20px 20px 10px;
-    
-    /* Esta transición hace que el libro se deslice suavemente al centrarse */
+    /* 1. ESTO HACE QUE EL LIBRO SE MUEVA HACIA LOS LADOS SUAVEMENTE */
+    transform: translateX(var(--desplazamiento, 0px));
     transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    /* 2. EL EXORCISMO: Borra cualquier fondo o sombra que esté en este contenedor vacío */
+    background: transparent !important;
+    box-shadow: none !important;
 }
+
 
 /* --- LAS HOJAS --- */
 .papel {
@@ -70,7 +67,7 @@ body {
     left: 0;
     transform-origin: left center; /* El lomo del libro */
     /* Aquí está la curva de movimiento súper suave */
-    transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: transform 0.8s cubic-bezier(0, 0, 0, 0.15);
     transform-style: preserve-3d;
     cursor: pointer;
 }

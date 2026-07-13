@@ -162,3 +162,28 @@ body {
     .arbol-centrado .panel-izquierdo { display: none; }
     .contenido-texto { width: 100%; padding: 20px; }
 }
+
+/* =======================================================
+   MUNDO MÓVIL (Corrección del botón y el texto)
+   ======================================================= */
+@media (max-width: 768px) {
+    /* 1. Hacemos el botón un poco más discreto en el celular */
+    #btn-volver-menu {
+        top: 15px;
+        left: 15px;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    /* 2. Empujamos el contenedor del texto hacia abajo. 
+       NOTA: Si tu tarjeta tiene otra clase (como .carta o .contenedor), 
+       cámbiala aquí abajo */
+    .tarjeta, .contenedor, .carta {
+        padding-top: 60px !important; /* Este es el margen mágico que salva el texto */
+    }
+    
+    /* Si el texto está en un contenedor específico, también puedes usar esto: */
+    .texto-arbol { 
+        margin-top: 40px;
+    }
+}
