@@ -1,5 +1,5 @@
 // Cámbiale el nombre UNA ÚLTIMA VEZ para que el celular borre el viejo e instale este nuevo
-const CACHE_NAME = 'pomodoro-amor-v-FINAL'; 
+const CACHE_NAME = 'pomodoro-amor-v-FINAL.1'; 
 const urlsToCache = [
   './',
   './index.html',
