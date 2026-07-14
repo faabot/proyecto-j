@@ -1,6 +1,6 @@
 // --- LÓGICA DEL CANDADO ---
 // La contraseña que deberá leer del QR
-const CLAVE_SECRETA = "AMOR"; 
+const CLAVE_SECRETA = "2608"; 
 
 function abrirModal(idModal) {
     document.getElementById(idModal).style.display = 'flex';
