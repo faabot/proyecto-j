@@ -3,7 +3,7 @@
   "name": "Tu Pomodoro Favorito",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/843/843242.png",
+      "src": "img/corazon.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any maskable"
