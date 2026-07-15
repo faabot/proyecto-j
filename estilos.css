@@ -79,24 +79,53 @@ body {
 }
 
 /* Las tarjetas de los botones */
+/* =======================================================
+   BOTONES DEL MENÚ (Estructura + Efecto Arcilla 3D)
+   ======================================================= */
 .widget-btn {
-    background: white;
-    text-decoration: none; /* Adiós al subrayado azul */
-    border-radius: 20px;
-    padding: 20px 15px;
+    /* 1. ESTRUCTURA Y ALINEACIÓN (Lo que faltaba) */
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    box-shadow: 0 8px 15px rgba(0,0,0,0.03);
+    flex-direction: column; /* Pone el ícono arriba y el texto abajo */
+    align-items: center; /* Centra todo horizontalmente */
+    justify-content: center; /* Centra todo verticalmente */
+    gap: 10px; /* Separación entre el ícono y la letra */
+    padding: 20px 10px; /* Espacio interior para que no quede apretado */
+    text-decoration: none; /* Le quita el subrayado feo al enlace */
+    color: #555; /* Color de letra gris oscuro/elegante */
+    font-weight: 600; /* Letra un poco más gordita */
+
+    /* 2. EL EFECTO CLAYMORFISMO (La magia visual) */
+    background-color: #ffffff;
+    border-radius: 28px;
+    border: none;
+    box-shadow: 
+        10px 10px 20px rgba(214, 51, 108, 0.12),
+        -10px -10px 20px rgba(255, 255, 255, 0.9),
+        inset -6px -6px 12px rgba(214, 51, 108, 0.05),
+        inset 6px 6px 12px rgba(255, 255, 255, 1);
+    
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    border: 1px solid rgba(0,0,0,0.01);
 }
 
+/* El efecto al presionar/pasar el mouse */
 .widget-btn:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 15px 30px rgba(255, 105, 135, 0.15);
+    transform: translateY(4px) scale(0.98);
+    color: #d6336c; /* El texto se pinta del rosado de tu app al tocarlo */
+    box-shadow: 
+        4px 4px 10px rgba(214, 51, 108, 0.12),
+        -4px -4px 10px rgba(255, 255, 255, 0.9),
+        inset -8px -8px 16px rgba(214, 51, 108, 0.08),
+        inset 8px 8px 16px rgba(255, 255, 255, 1);
+}
+
+/* Efecto al pasar el mouse (se aplasta suavemente como masilla) */
+.widget-btn:hover {
+    transform: translateY(4px) scale(0.98);
+    box-shadow: 
+        4px 4px 10px rgba(214, 51, 108, 0.12),
+        -4px -4px 10px rgba(255, 255, 255, 0.9),
+        inset -8px -8px 16px rgba(214, 51, 108, 0.08),
+        inset 8px 8px 16px rgba(255, 255, 255, 1);
 }
 
 /* El texto de los botones */
