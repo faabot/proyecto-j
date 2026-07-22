@@ -136,18 +136,27 @@ body {
    ======================================================= */
 @media (max-width: 768px) {
     .libro {
-        width: 280px;  /* Achicamos el ancho */
-        height: 350px; /* Achicamos el alto manteniendo la proporción */
+        /* Le damos a cada página un 42% del ancho de la pantalla.
+           Así, el libro abierto ocupará un 84%, dejando un margen perfecto 
+           a los lados para que respire y no toque los bordes. */
+        width: 42vw;  
+        height: 55vw; /* Mantiene la proporción rectangular para tus fotos */
     }
 
-    /* Aseguramos que las imágenes se adapten al nuevo tamaño sin deformarse */
+    /* Evitamos que el texto de adentro se vea muy grande en hojas pequeñas */
+    .contenido-pagina h2 {
+        font-size: 1.2rem;
+    }
+    .contenido-pagina p {
+        font-size: 0.9rem;
+    }
+
     .frente img, .dorso img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
 
-    /* Evita que el celular cree un scroll horizontal accidental con el efecto 3D */
     html, body {
         overflow-x: hidden;
     }

@@ -8,10 +8,12 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* El botón de volver */
 .btn-volver {
-    position: absolute; top: 20px; left: 20px; text-decoration: none;
-    background-color: #F5E8DC; color: #5C4033; padding: 10px 15px;
-    border-radius: 15px; font-weight: bold; z-index: 100;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
 }
 
 /* --- LA TARJETA EXACTA DEL VIDEO --- */
@@ -164,26 +166,48 @@ body {
 }
 
 /* =======================================================
-   MUNDO MÓVIL (Corrección del botón y el texto)
+   MUNDO MÓVIL (Corrección definitiva de diseño y botón)
    ======================================================= */
 @media (max-width: 768px) {
-    /* 1. Hacemos el botón un poco más discreto en el celular */
-    #btn-volver-menu {
-        top: 15px;
-        left: 15px;
-        padding: 6px 12px;
-        font-size: 0.8rem;
+    /* 1. Ajustamos el contenedor principal (La tarjeta) */
+    .tarjeta-amor { 
+        flex-direction: column; /* Apila el texto arriba y el árbol abajo */
+        height: auto; 
+        min-height: 90vh; /* Para que abarque bien la pantalla */
+        padding-top: 70px; /* EL MARGEN MÁGICO: Empuja todo abajo para librar el botón */
+        padding-bottom: 20px; 
     }
 
-    /* 2. Empujamos el contenedor del texto hacia abajo. 
-       NOTA: Si tu tarjeta tiene otra clase (como .carta o .contenedor), 
-       cámbiala aquí abajo */
-    .tarjeta, .contenedor, .carta {
-        padding-top: 60px !important; /* Este es el margen mágico que salva el texto */
+    /* 2. Ajustamos los paneles izquierdo y derecho */
+    .panel-izquierdo, .panel-derecho { 
+        width: 100% !important; /* Ahora toman el ancho completo en celular */
     }
     
-    /* Si el texto está en un contenedor específico, también puedes usar esto: */
-    .texto-arbol { 
-        margin-top: 40px;
+    .panel-derecho { 
+        height: 350px; /* Le damos altura al lienzo del árbol */
+    }
+
+    .panel-izquierdo {
+        align-items: flex-start; /* En lugar de pegarse al fondo, el texto sube */
+        padding-bottom: 0;
+    }
+
+    /* 3. Comportamiento en la animación inicial */
+    .arbol-centrado .panel-izquierdo { 
+        display: none; 
+    }
+
+    /* 4. El contenedor exacto del texto */
+    .contenido-texto { 
+        width: 100%; 
+        padding: 0 20px; /* Le damos respiro a los lados */
+    }
+
+    /* 5. El botón de volver un poco más compacto */
+    .btn-volver {
+        top: 15px;
+        left: 15px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
     }
 }
